@@ -58,3 +58,20 @@ class RegisterForm(Form):
         validators = [
             DataRequired()
         ])
+
+
+class LoginForm(Form):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    password = PasswordField('Password', validators=[DataRequired()])
+
+
+
+class PetForm(Form):
+    name = TextField("Pet Name")
+    status = TextField('Lost or found')
+    description = TextAreaField("Tell me about your pet")
+    location = TextField('Where was your pet last scene')
+    image = TextField('pic of your lost pet')
+    breed = TextField('Pet Type')
+    distinct = TextField('Unique property for your pet')
+    submit = SubmitField('Add Pet')

@@ -83,11 +83,51 @@ def login():
                 ## creates session
                 login_user(user) # this method comes from the flask_login package
                 flash("You've been logged in", "success")
-                return redirect('/profile')
+                return redirect('/pets')
             else:
                 flash("your email or password doesn't match", "error")
     
     return render_template('login.html', form=form)
+
+
+## =======================================================
+## LOGOUT ROUTE
+## =======================================================
+
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    flash("You've been logged out", "success")
+    return redirect(url_for('index'))
+
+## =======================================================
+## PET ROUTE
+## =======================================================
+
+@app.route('/pets', methods=('GET','POST'))
+@login_required
+def pets():
+    form = forms.PetForm()
+    pets = models.Pet.select().where(models.Pet.user == current_user.id)
+    if form.validate_on_submit():
+        models.Pet.create(
+        name=form.name.data.strip(),
+        status=form.status.data.strip(), 
+        user = current_user.id,
+        location = form.location.data.strip(),
+        image = form.image.data.strip(),
+        description = form.description.data.strip(),
+        breed = form.breed.data.strip(),
+        distinct = form.distinct.data.strip()
+        )
+        return render_template('pets.html', pets = pets,form = form)
+    return render_template('pets.html', pets = pets,form = form)
+
+
+
+
+
 
 
 if __name__ == '__main__':

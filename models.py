@@ -38,8 +38,43 @@ class User(UserMixin, Model):
             raise ValueError("User already exists")
 
 
+class Pet(Model):
+    __table_args__ = {'extend_existing': True} 
+    
+    name = CharField()
+    status = CharField()
+    location = CharField()
+    image = CharField()
+    description = CharField(max_length=100)
+    breed = CharField()
+    distinct = CharField()
+    user = ForeignKeyField(User, backref="pets")
+
+    class Meta:
+        database = DATABASE
+        order_by = ('-timestamp',)
+    
+    # @classmethod
+    # def create_pet(cls, name,status, location , image, description, breed,distinct,):
+    #     try:
+    #         cls.create(
+    #             name = name,
+    #             status = status,
+    #             location = location,
+    #             image = image,
+    #             description = description,
+    #             breed = breed,
+    #             distinct = distinct
+    #         )
+    #     except IntegrityError:
+    #         raise ValueError("Exact Pet already exists")
+
+
+
+
+
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User], safe=True)
+    DATABASE.create_tables([User,Pet], safe=True)
     DATABASE.close()
