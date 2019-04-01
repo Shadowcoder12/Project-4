@@ -44,7 +44,7 @@ def after_request(response):
 
 @app.route('/')
 def index():
-    return 'hi'
+    return render_template('landing.html')
 
 ## =======================================================
 ## REGISTER ROUTE
@@ -66,7 +66,28 @@ def register():
     return render_template('register.html', form=form)
 
 
+## =======================================================
+## LOGIN ROUTE
+## =======================================================
 
+@app.route('/login', methods=('GET', 'POST'))
+def login():
+    form = forms.LoginForm()
+    if form.validate_on_submit():
+        try:
+            user = models.User.get(models.User.email == form.email.data) # comparing the user email in the database to the one put in the form
+        except models.DoesNotExist:
+            flash("your email or password doesn't exist in our database")
+        else:   # using the check_password_hash method bc we hashed the user's password when they registered. comparing the user's password in the database to the password put into the form
+            if check_password_hash(user.password, form.password.data):
+                ## creates session
+                login_user(user) # this method comes from the flask_login package
+                flash("You've been logged in", "success")
+                return redirect('/profile')
+            else:
+                flash("your email or password doesn't match", "error")
+    
+    return render_template('login.html', form=form)
 
 
 if __name__ == '__main__':
