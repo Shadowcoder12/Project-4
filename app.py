@@ -178,6 +178,19 @@ def edit_pet(petid):
     form.distinct.data = pet.distinct
     return render_template("edit_pet.html", form=form)
 
+## =======================================================
+## DELETE PET ROUTE
+## =======================================================
+@app.route("/deletepet/<petid>")
+@login_required
+def delete_pet(petid):
+    pet = models.Pet.get(petid)
+    pet.delete_instance()
+    return redirect(url_for('pets'))
+
+
+
+
 
 if __name__ == '__main__':
     models.initialize()
