@@ -75,3 +75,14 @@ class PetForm(Form):
     breed = TextField('Pet Type')
     distinct = TextField('Unique property for your pet')
     submit = SubmitField('Add Pet')
+
+
+class EditPetForm(Form):
+    name = TextField("Pet Name")
+    status = TextField('Lost or found')
+    description = TextAreaField("Tell me about your pet")
+    location = TextField('Where was your pet last scene')
+    image = TextField('pic of your lost pet')
+    breed = TextField('Pet Type')
+    distinct = TextField('Unique property for your pet')
+    submit = SubmitField('Edit Pet')

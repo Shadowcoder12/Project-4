@@ -11,76 +11,16 @@
           <p class="card-text">Desc:{{pet.description}}</p>
           <p class="card-text">Status:{{pet.status}}</p>
           <p class="card-text">Last known Location:{{pet.location}}</p>
-          <a href="#" class="btn btn-primary">More Infomation</a>
+          <a href="{{url_for('edit_pet', petid=pet.id)}}" class="btn btn-primary">Edit Pet</a>
+          <a href="" class="btn btn-primary">Delete Pet</a>
         </div>
       </div>
       </div>
-
-      <!-- <div class="col-sm-4"> 
-      <div class="card" style="width: 18rem;">
-            <img class="card-img-top" src="..." alt="Card image cap">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-      </div>
-      <div class="col-sm-4"> 
-          <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="Card image cap">
-                <div class="card-body">
-                  <h5 class="card-title">Card title</h5>
-                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                  <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-              </div>
-      </div>     -->
             {% endif %}      
             {% endfor %}
         </div>
-<section>
-        <h2>Add a pet </h2>
-          
-          <form method="POST" action="" novalidate>
-              {{ form.hidden_tag() }}
-              <div class="field">
-              {{ form.name.label }}
-               {{ form.name(class_="input") }}
-              </div>
-              <div class="field">
-                    {{ form.status.label }}
-                     {{ form.status(class_="input") }}
-                    </div>
-                    <div class="field">
-                            {{ form.location.label }}
-                             {{ form.location(class_="input") }}
-                            </div>
-                        <div class="field">
-                                    {{ form.image.label }}
-                                     {{ form.image(class_="input") }}
-                                    </div>
-                                <div class="field">
-                                            {{ form.description.label }}
-                                             {{ form.description(class_="input") }}
-                                            </div>
 
-                                            <div class="field">
-                                                    {{ form.breed.label }}
-                                                     {{ form.breed(class_="input") }}
-                                                    </div>
-
-                                                    <div class="field">
-                                                            {{ form.distinct.label }}
-                                                             {{ form.distinct(class_="input") }}
-                                                            </div>
-        
-              {{ form.submit(class_="button") }}
-              
-          </form>
-      </section>
-        
-    
+<a href="{{url_for('add_pet')}}">Add a pet</a>
 
 
 
