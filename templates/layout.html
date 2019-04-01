@@ -58,12 +58,9 @@
             <div class="column personal-link">
                 <a href="#"><i class="fas fa-cog"></i></a><p>Leo</p></div>
         </footer>
-        <script>
-                function activePlacesSearch(){
-                var input = document.getElementById('location');
-                var autocomplete = new google.maps.places.Autocomplete(input);
-                }
-            </script>
+            <script
+            type="text/javascript"
+            src="{{ url_for('static', filename='index.js') }}" ></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSfRX_VmQq4GZ08-qnWEM7oHi14qUO6RI&libraries=places&callback=activePlacesSearch"></script>
   </body>
 </html>
