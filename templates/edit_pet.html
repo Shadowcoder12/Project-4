@@ -1,0 +1,43 @@
+{% extends "layout.html" %} {% block content %}
+
+<section>
+        <h2>Edit your pet </h2> 
+        
+<form method="POST" action="" novalidate>
+{{ form.hidden_tag() }}
+<div class="field">
+{{ form.name.label }}
+{{ form.name(class_="input") }}
+</div>
+<div class="field">
+{{ form.status.label }}
+{{ form.status(class_="input") }}
+</div>
+<div class="field">
+{{ form.location.label }}
+{{ form.location(class_="input") }}
+</div>
+<div class="field">
+{{ form.image.label }}
+{{ form.image(class_="input") }}
+</div>
+<div class="field">
+{{ form.description.label }}
+{{ form.description(class_="input") }}
+</div>
+
+<div class="field">
+{{ form.breed.label }}
+{{ form.breed(class_="input") }}
+</div>
+
+<div class="field">
+{{ form.distinct.label }}
+{{ form.distinct(class_="input") }}
+</div>
+{{ form.submit(class_="button") }}
+</form>
+</section>
+
+
+{% endblock %}
