@@ -125,9 +125,58 @@ def pets():
     return render_template('pets.html', pets = pets,form = form)
 
 
+## =======================================================
+## ADD PET ROUTE
+## =======================================================
 
+@app.route("/addpet", methods=['GET', 'POST'])
+@login_required
+def add_pet():
+    form = forms.PetForm()
+    pets = models.Pet.select().where(models.Pet.user == current_user.id)
+    if form.validate_on_submit():
+        models.Pet.create(
+        name=form.name.data.strip(),
+        status=form.status.data.strip(), 
+        user = current_user.id,
+        location = form.location.data.strip(),
+        image = form.image.data.strip(),
+        description = form.description.data.strip(),
+        breed = form.breed.data.strip(),
+        distinct = form.distinct.data.strip()
+        )
+        # return render_template("pets.html", pets = pets,form = form)
+        return redirect(url_for('pets'))
+    return render_template('add_pets.html', pets = pets,form = form)
 
-
+## =======================================================
+## EDIT PET ROUTE
+## =======================================================
+@app.route("/editpet/<petid>", methods=["GET", "POST"])
+@login_required
+def edit_pet(petid):
+    pet = models.Pet.get(models.Pet.id == petid)
+    form = forms.EditPetForm()
+    if form.validate_on_submit():
+        pet.name = form.name.data
+        pet.status = form.status.data
+        pet.location = form.location.data
+        pet.image = form.image.data
+        pet.description = form.description.data
+        pet.breed = form.breed.data
+        pet.distinct = form.distinct.data
+        pet.save()
+        pets = models.Pet.select().where(models.Pet.user == current_user.id)
+        return render_template("pets.html",form=form, pets=pets)
+    
+    form.name.data = pet.name
+    form.status.data = pet.status
+    form.location.data = pet.location
+    form.image.data = pet.image
+    form.description.data = pet.description
+    form.breed.data = pet.breed
+    form.distinct.data = pet.distinct
+    return render_template("edit_pet.html", form=form)
 
 
 if __name__ == '__main__':
