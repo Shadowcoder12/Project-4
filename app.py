@@ -1,4 +1,4 @@
-from flask import Flask, g
+from flask import Flask, g, jsonify
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
@@ -156,6 +156,7 @@ def add_pet():
 @login_required
 def edit_pet(petid):
     pet = models.Pet.get(models.Pet.id == petid)
+    print(pet)
     form = forms.EditPetForm()
     if form.validate_on_submit():
         pet.name = form.name.data
@@ -176,7 +177,7 @@ def edit_pet(petid):
     form.description.data = pet.description
     form.breed.data = pet.breed
     form.distinct.data = pet.distinct
-    return render_template("edit_pet.html", form=form)
+    return render_template("edit_pet.html", form=form, pet=pet)
 
 ## =======================================================
 ## DELETE PET ROUTE
