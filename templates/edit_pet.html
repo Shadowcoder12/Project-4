@@ -1,5 +1,4 @@
 {% extends "layout.html" %} {% block content %}
-
 <style>
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
@@ -14,6 +13,10 @@
         }
       </style>
 
+      <div id="map" style="height:100%;"></div>
+
+
+
 <h2>{{pet.name}}</h2>
 <div class="card mb-3">
         <img class="card-img-top" src="{{pet.image}}" alt="Card image cap">
@@ -26,14 +29,7 @@
           <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
         </div>
       </div>
-
-      <div id="map"></div>
       
-
-
-
-
-
 <section>
         <h2>Edit your pet </h2> 
         
@@ -59,12 +55,10 @@
 {{ form.description.label }}
 {{ form.description(class_="input") }}
 </div>
-
 <div class="field">
 {{ form.breed.label }}
 {{ form.breed(class_="input") }}
 </div>
-
 <div class="field">
 {{ form.distinct.label }}
 {{ form.distinct(class_="input") }}
@@ -72,19 +66,15 @@
 {{ form.submit(class_="button") }}
 </form>
 </section>
-
-
-<script>
-        var map;
-        function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: -34.397, lng: 150.644},
-            zoom: 8
-          });
-        }
-    </script>
-
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSfRX_VmQq4GZ08-qnWEM7oHi14qUO6RI&callback=initMap"
+        <script>
+                var map;
+                function initMap() {
+                  map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: -34.397, lng: 150.644},
+                    zoom: 8
+                  });
+                }
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSfRX_VmQq4GZ08-qnWEM7oHi14qUO6RI&callback=initMap"
             async defer></script>
-
 {% endblock %}
