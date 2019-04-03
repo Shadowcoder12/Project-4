@@ -5,19 +5,6 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
 
-
-    <style>
-            /* Always set the map height explicitly to define the size of the div
-             * element that contains the map. */
-            #map {
-              height: 100%;
-
-            }
-            /* Optional: Makes the sample page fill the window. */
-            
-          </style>
-
-
      <link
       rel="stylesheet"
       type="text/css"
@@ -55,8 +42,6 @@
         </nav>
       </div>
       <h1>{% if current_user.is_authenticated %} Hello {{current_user.username}} {%endif%}</h1>
-
-      <div id="map"></div>
       
         <div class="content-container">
             <p>this area will contain the main content of the page</p>
@@ -76,7 +61,22 @@
             src="{{ url_for('static', filename='index.js') }}" ></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSfRX_VmQq4GZ08-qnWEM7oHi14qUO6RI&libraries=places&callback=activePlacesSearch"></script>
 
-            
+        <script type="text/javascript">
+            function initialize() {
+                var input = document.getElementById('location');
+                var autocomplete = new google.maps.places.Autocomplete(input);
+                google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                    var place = autocomplete.getPlace();
+                    document.getElementById('lat').value = place.geometry.location.lat();
+                    document.getElementById('long').value = place.geometry.location.lng();
+                    //alert("This function is working!");
+                    //alert(place.name);
+                   // alert(place.address_components[0].long_name);
+        
+                });
+            }
+            google.maps.event.addDomListener(window, 'load', initialize); 
+        </script>   
         
   </body>
 </html>

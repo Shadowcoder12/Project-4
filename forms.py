@@ -3,7 +3,7 @@ from flask_wtf import FlaskForm as Form
 from models import User
 
 
-from wtforms import TextField, TextAreaField, SubmitField, StringField, PasswordField, IntegerField
+from wtforms import TextField, TextAreaField, SubmitField, StringField, PasswordField, IntegerField, HiddenField
 from wtforms import SelectField
 
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email, Length, EqualTo)
@@ -71,6 +71,8 @@ class PetForm(Form):
     status = TextField('Lost or found')
     description = TextAreaField("Tell me about your pet")
     location = TextField('Where was your pet last scene')
+    lat = HiddenField('lat')
+    long = HiddenField('long')
     image = TextField('pic of your lost pet')
     breed = TextField('Pet Type')
     distinct = TextField('Unique property for your pet')

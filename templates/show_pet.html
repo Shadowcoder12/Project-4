@@ -1,0 +1,50 @@
+{% extends "layout.html" %} {% block content %}
+<style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+         #map {
+            height: 600px;
+            width:600px;
+            float: right;
+            
+          }
+      </style>
+
+      <div id="map"></div>
+
+
+
+<h2>{{pet.name}}</h2>
+<div class="card mb-3">
+        <img class="card-img-top" src="{{pet.image}}" alt="Card image cap">
+        <div class="card-body">
+          <h5 class="card-title">Current status:{{pet.status}}</h5>
+          <p class="card-text">Description: {{pet.description}}</p>
+          <p class="card-text">Last Known Location:{{pet.location}}</p>
+          <p class="card-text">Owner:{{ current_user.firstname }}</p>
+          <p class="card-text">Breed:{{pet.breed}}</p>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+      </div>
+
+      <input type="text" id="lat" value="{{pet.lat}}"  />
+      <input type="text" id="long" value ="{{pet.long}}" />
+
+      <a href="{{url_for('edit_pet', petid=pet.id)}}" class="btn btn-primary">Edit Pet</a>
+        <script>
+                var map;
+                function initMap() {
+                   let lat = document.getElementById('lat').value;
+                   let long = document.getElementById('long').value;
+                   console.log(lat, long)
+                  map = new google.maps.Map(document.getElementById('map'), {
+                    center: {lat: parseFloat(lat), lng: parseFloat(long)},
+                    zoom: 15
+                  })
+                  console.log(map);
+                }
+              
+            </script>
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDSfRX_VmQq4GZ08-qnWEM7oHi14qUO6RI&callback=initMap"
+            async defer></script>
+{% endblock %}

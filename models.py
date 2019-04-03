@@ -44,6 +44,8 @@ class Pet(Model):
     name = CharField()
     status = CharField()
     location = CharField()
+    lat = DoubleField()
+    long = DoubleField()
     image = CharField()
     description = CharField(max_length=100)
     breed = CharField()

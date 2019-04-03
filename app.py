@@ -143,11 +143,24 @@ def add_pet():
         image = form.image.data.strip(),
         description = form.description.data.strip(),
         breed = form.breed.data.strip(),
-        distinct = form.distinct.data.strip()
+        distinct = form.distinct.data.strip(),
+        lat = form.lat.data.strip(),
+        long = form.long.data.strip()
         )
         # return render_template("pets.html", pets = pets,form = form)
         return redirect(url_for('pets'))
     return render_template('add_pets.html', pets = pets,form = form)
+
+## =======================================================
+## SHOW PET ROUTE
+## =======================================================
+@app.route("/showpet/<petid>", methods=["GET", "POST"])
+@login_required
+def show_pet(petid):
+    pet = models.Pet.get(models.Pet.id == petid)
+    print(pet)
+    return render_template("show_pet.html", pet=pet)
+
 
 ## =======================================================
 ## EDIT PET ROUTE
@@ -168,7 +181,7 @@ def edit_pet(petid):
         pet.distinct = form.distinct.data
         pet.save()
         pets = models.Pet.select().where(models.Pet.user == current_user.id)
-        return render_template("pets.html",form=form, pets=pets)
+        return render_template("show_pet.html",form=form, pet=pet)
     
     form.name.data = pet.name
     form.status.data = pet.status
@@ -188,8 +201,6 @@ def delete_pet(petid):
     pet = models.Pet.get(petid)
     pet.delete_instance()
     return redirect(url_for('pets'))
-
-
 
 
 
