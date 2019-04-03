@@ -6,6 +6,7 @@ from peewee import *
 
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
+from flask_wtf.file import FileField, FileRequired
 
 DATABASE = SqliteDatabase('petfinder.db')
 
@@ -46,7 +47,8 @@ class Pet(Model):
     location = CharField()
     lat = DoubleField()
     long = DoubleField()
-    image = CharField()
+    image_filename = CharField()
+    image_url = CharField()
     description = CharField(max_length=100)
     breed = CharField()
     distinct = CharField()
@@ -56,20 +58,24 @@ class Pet(Model):
         database = DATABASE
         order_by = ('-timestamp',)
     
-    # @classmethod
-    # def create_pet(cls, name,status, location , image, description, breed,distinct,):
-    #     try:
-    #         cls.create(
-    #             name = name,
-    #             status = status,
-    #             location = location,
-    #             image = image,
-    #             description = description,
-    #             breed = breed,
-    #             distinct = distinct
-    #         )
-    #     except IntegrityError:
-    #         raise ValueError("Exact Pet already exists")
+    @classmethod
+    def create_pet(cls, name,status, location , image_filename, image_url,lat,long, description, breed,distinct,):
+        try:
+            cls.create(
+                name = name,
+                status = status,
+                location = location,
+                image_filename = image_filename,
+                image_url = image_url,
+                lat = lat,
+                long = long,
+                description = description,
+                breed = breed,
+                distinct = distinct,
+                user = user
+            )
+        except IntegrityError:
+            raise ValueError("Exact Pet already exists")
 
 
 
