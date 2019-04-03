@@ -27,8 +27,8 @@
         </div>
       </div>
 
-      <input type="text" id="lat" value="{{pet.lat}}"  />
-      <input type="text" id="long" value ="{{pet.long}}" />
+      <input type="hidden" id="lat" value="{{pet.lat}}"  />
+      <input type="hidden" id="long" value ="{{pet.long}}" />
 
       <a href="{{url_for('edit_pet', petid=pet.id)}}" class="btn btn-primary">Edit Pet</a>
         <script>
@@ -36,12 +36,18 @@
                 function initMap() {
                    let lat = document.getElementById('lat').value;
                    let long = document.getElementById('long').value;
+                   var myLatLng = {lat: parseFloat(lat), lng:parseFloat(long)};
                    console.log(lat, long)
-                  map = new google.maps.Map(document.getElementById('map'), {
-                    center: {lat: parseFloat(lat), lng: parseFloat(long)},
+                    map = new google.maps.Map(document.getElementById('map'), {
+                     center: {lat: parseFloat(lat), lng: parseFloat(long)},
                     zoom: 15
                   })
                   console.log(map);
+                  var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                    title: 'Hello World!'
+                  });
                 }
               
             </script>
