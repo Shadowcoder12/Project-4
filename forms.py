@@ -8,6 +8,9 @@ from wtforms import SelectField
 
 from wtforms.validators import (DataRequired, Regexp, ValidationError, Email, Length, EqualTo)
 
+# Imports for file/photo uploader
+from flask_wtf.file import FileField, FileRequired, FileAllowed
+
 def name_exists(form, field):
     if User.select().where(User.username == field.data). exists():
         raise ValidationError("User with this username already exists!")
@@ -73,10 +76,11 @@ class PetForm(Form):
     location = TextField('Where was your pet last scene')
     lat = HiddenField('lat')
     long = HiddenField('long')
-    image = TextField('pic of your lost pet')
+    pet_image = FileField('Pet Image')
     breed = TextField('Pet Type')
     distinct = TextField('Unique property for your pet')
     submit = SubmitField('Add Pet')
+    
 
 
 class EditPetForm(Form):

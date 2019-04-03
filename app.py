@@ -1,8 +1,11 @@
 import os
-from flask import Flask, g, jsonify
+from flask import Flask, g, jsonify, request
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
+
+# Image uploader imports
+from flask_uploads import UploadSet, configure_uploads, IMAGES
 
 import forms
 import models
@@ -10,13 +13,25 @@ import models
 DEBUG = True
 PORT = 8000
 
-app = Flask(__name__)
+app = Flask(__name__,instance_relative_config=True)
+
+# Sets upload destinations for image uploader
+app.config.from_pyfile('flask.cfg')
+
 app.secret_key = 'This is not the secret key'
+
+# APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 login_manager = LoginManager()
 ## sets up our login for the app
 login_manager.init_app(app)
 login_manager.login_view = 'login'
+
+
+# Sets variable images to uploader
+images = UploadSet('images', IMAGES)
+configure_uploads(app, images)
+
 
 @login_manager.user_loader
 def load_user(userid):
@@ -136,21 +151,44 @@ def add_pet():
     form = forms.PetForm()
     pets = models.Pet.select().where(models.Pet.user == current_user.id)
     if form.validate_on_submit():
+        # # Sets variable filename to image file of uploaded 'recipe_image' from form
+        filename = images.save(request.files['pet_image'])
+        # # Sets variable url to change image url to match filename
+        url = images.url(filename)
+
         models.Pet.create(
         name=form.name.data.strip(),
         status=form.status.data.strip(), 
         user = current_user.id,
         location = form.location.data.strip(),
-        image = form.image.data.strip(),
         description = form.description.data.strip(),
         breed = form.breed.data.strip(),
         distinct = form.distinct.data.strip(),
         lat = form.lat.data.strip(),
-        long = form.long.data.strip()
+        long = form.long.data.strip(),
+        image_filename = filename,
+        image_url = url
         )
         # return render_template("pets.html", pets = pets,form = form)
         return redirect(url_for('pets'))
     return render_template('add_pets.html', pets = pets,form = form)
+
+# @app.route("/upload", methods=['GET', 'POST'])
+# @login_required
+# def upload():
+#     target = os.path.join(APP_ROOT,'images/')
+#     print(target)
+
+#     if not os.path.isdir(target):
+#         os.mkdir(target)
+
+#     for file in request.files.getlist("file"):
+#         print(file)
+#         filename = file.filename
+#         destination = "/".join([target, filename])
+#         print(destination)
+#         file.save(destination)
+#     return 'hi'
 
 ## =======================================================
 ## SHOW PET ROUTE
@@ -176,7 +214,6 @@ def edit_pet(petid):
         pet.name = form.name.data
         pet.status = form.status.data
         pet.location = form.location.data
-        pet.image = form.image.data
         pet.description = form.description.data
         pet.breed = form.breed.data
         pet.distinct = form.distinct.data
