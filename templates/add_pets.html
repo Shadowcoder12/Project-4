@@ -3,7 +3,7 @@
     <section>
             <h2>Add a pet </h2> 
             
-    <form method="POST" action="" novalidate>
+    <form method="POST" action="" enctype=multipart/form-data novalidate>
     {{ form.hidden_tag() }}
     <div class="field">
     {{ form.name.label }}
@@ -18,8 +18,8 @@
     {{ form.location(class_="input") }}
     </div>
     <div class="field">
-    {{ form.image.label }}
-    {{ form.image(class_="input") }}
+    {{ form.pet_image.label }}
+    {{ form.pet_image(class_="input") }}
     </div>
     <div class="field">
     {{ form.description.label }}
@@ -39,5 +39,12 @@
     </form>
     </section>
 
+    <!-- <script> 
+        var input = document.getElementById('image').type='file';
+        input.accept ="image/*";
+        input.name='file';
+        input.setAttribute("multiple", true);
+
+    </script> -->
 
     {% endblock %}
