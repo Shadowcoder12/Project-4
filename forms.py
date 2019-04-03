@@ -84,6 +84,8 @@ class EditPetForm(Form):
     status = TextField('Lost or found')
     description = TextAreaField("Tell me about your pet")
     location = TextField('Where was your pet last scene')
+    lat = HiddenField('lat')
+    long = HiddenField('long')
     image = TextField('pic of your lost pet')
     breed = TextField('Pet Type')
     distinct = TextField('Unique property for your pet')

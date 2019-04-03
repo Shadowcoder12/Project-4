@@ -1,3 +1,4 @@
+import os
 from flask import Flask, g, jsonify
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -179,6 +180,8 @@ def edit_pet(petid):
         pet.description = form.description.data
         pet.breed = form.breed.data
         pet.distinct = form.distinct.data
+        lat = form.lat.data.strip()
+        long = form.long.data.strip()
         pet.save()
         pets = models.Pet.select().where(models.Pet.user == current_user.id)
         return render_template("show_pet.html",form=form, pet=pet)
