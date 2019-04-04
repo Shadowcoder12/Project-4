@@ -11,6 +11,7 @@ from wtforms.validators import (DataRequired, Regexp, ValidationError, Email, Le
 # Imports for file/photo uploader
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 
+
 def name_exists(form, field):
     if User.select().where(User.username == field.data). exists():
         raise ValidationError("User with this username already exists!")
@@ -71,7 +72,7 @@ class LoginForm(Form):
 
 class PetForm(Form):
     name = TextField("Pet Name")
-    status = TextField('Lost or found')
+    status = SelectField('Lost or found', choices=[('lost', 'Lost'), ('found','Found')])
     description = TextAreaField("Tell me about your pet")
     location = TextField('Where was your pet last scene')
     lat = HiddenField('lat')
