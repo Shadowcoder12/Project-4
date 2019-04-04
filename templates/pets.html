@@ -12,7 +12,12 @@
           <p class="card-text">Status:{{pet.status}}</p>
           <p class="card-text">Last known Location:{{pet.location}}</p>
           <a href="{{url_for('show_pet', petid=pet.id)}}" class="btn btn-primary">Show More</a>
+
+          {% if current_user.id == pet.user_id %}
+
           <a href="{{url_for('delete_pet', petid=pet.id)}}" class="btn btn-primary">Delete Pet</a>
+          {% endif %}  
+
         </div>
       </div>
       </div>
