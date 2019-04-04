@@ -261,10 +261,10 @@ def found_pet(petid):
         if distinct_guess == pet.distinct:
             pet.status = "waiting"
             print(pet.status)
-            flash("Looks like you found this pet. We will notify the owner that there is a potential match!")
+            flash("Looks like you found this pet. We will notify the owner that there is a potential match!", 'success')
             pet.save()
         elif distinct_guess != pet.distinct: 
-            flash("sorry your infomation does not match our database")
+            flash("sorry your infomation does not match our database", 'error')
         # return redirect(url_for('pets'))
         return render_template("found_pet.html", form=form, pet=pet) 
     return render_template("found_pet.html", form=form, pet=pet)       
