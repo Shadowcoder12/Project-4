@@ -11,11 +11,11 @@
           <p class="card-text">Desc:{{pet.description}}</p>
           <p class="card-text">Status:{{pet.status}}</p>
           <p class="card-text">Last known Location:{{pet.location}}</p>
-          <a href="{{url_for('show_pet', petid=pet.id)}}" class="btn btn-primary">Show More</a>
+          <a href="{{url_for('show_pet', petid=pet.id)}}" class="btn btn-outline-primary">Show More</a>
 
           {% if current_user.id == pet.user_id %}
 
-          <a href="{{url_for('delete_pet', petid=pet.id)}}" class="btn btn-primary">Delete Pet</a>
+          <a href="{{url_for('delete_pet', petid=pet.id)}}" class="btn btn-outline-danger">Delete Pet</a>
           {% endif %}  
 
         </div>
@@ -25,7 +25,7 @@
             {% endfor %}
         </div>
 
-<a href="{{url_for('add_pet')}}">Add a pet</a>
+<a href="{{url_for('add_pet')}}" class="btn btn-outline-dark">Add a pet</a>
 
 
 
