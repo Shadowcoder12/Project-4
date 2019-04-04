@@ -94,3 +94,9 @@ class EditPetForm(Form):
     breed = TextField('Pet Type')
     distinct = TextField('Unique property for your pet')
     submit = SubmitField('Edit Pet')
+
+
+
+class FoundPetForm(Form):
+    distinct = TextField('What is the unique property of this pet?')
+    submit = SubmitField('Found Pet')
