@@ -125,7 +125,9 @@ def logout():
 @login_required
 def pets():
     form = forms.PetForm()
-    pets = models.Pet.select().where(models.Pet.user == current_user.id)
+    pets = models.Pet.select()
+#   pets = models.Pet.select().where(models.Pet.user == current_user.id)
+    user = models.User.get(current_user.id)
     if form.validate_on_submit():
         models.Pet.create(
         name=form.name.data.strip(),
@@ -138,7 +140,7 @@ def pets():
         distinct = form.distinct.data.strip()
         )
         return render_template('pets.html', pets = pets,form = form)
-    return render_template('pets.html', pets = pets,form = form)
+    return render_template('pets.html', pets = pets,form = form, user = user)
 
 
 ## =======================================================
@@ -226,7 +228,6 @@ def edit_pet(petid):
     form.name.data = pet.name
     form.status.data = pet.status
     form.location.data = pet.location
-    form.image.data = pet.image
     form.description.data = pet.description
     form.breed.data = pet.breed
     form.distinct.data = pet.distinct
@@ -241,6 +242,30 @@ def delete_pet(petid):
     pet = models.Pet.get(petid)
     pet.delete_instance()
     return redirect(url_for('pets'))
+
+
+## =======================================================
+## FOUND PET ROUTE
+## =======================================================
+@app.route("/foundpet/<petid>", methods=["GET", "POST"])
+@login_required
+def found_pet(petid):
+    pet = models.Pet.get(models.Pet.id == petid)
+    form =forms.FoundPetForm()
+    if form.validate_on_submit():
+        distinct_guess = form.distinct.data
+        if distinct_guess == pet.distinct:
+            pet.status = "waiting"
+        elif distinct_guess != form.distinct.data: 
+            print("sorry our infomation does not match our database")
+        return redirect(url_for('pets'))
+    return render_template("found_pet.html", form=form, pet=pet)       
+
+
+
+
+
+
 
 
 
