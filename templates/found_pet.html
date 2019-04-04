@@ -1,3 +1,4 @@
+{% extends "layout.html" %} {% block content %}
 <form method="POST" action="" novalidate>
     {{ form.hidden_tag() }}
     
@@ -8,3 +9,15 @@
     {{ form.submit(class_="button") }}
     </form>
     </section>
+
+    {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+          {% endblock %}
