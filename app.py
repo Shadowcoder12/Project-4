@@ -157,6 +157,7 @@ def add_pet():
         filename = images.save(request.files['pet_image'])
         # # Sets variable url to change image url to match filename
         url = images.url(filename)
+       
 
         models.Pet.create(
         name=form.name.data.strip(),
@@ -173,7 +174,7 @@ def add_pet():
         )
         # return render_template("pets.html", pets = pets,form = form)
         return redirect(url_for('pets'))
-    return render_template('add_pets.html', pets = pets,form = form)
+    return render_template('add_pets.html', pets = pets,form = form,)
 
 # @app.route("/upload", methods=['GET', 'POST'])
 # @login_required
@@ -254,11 +255,18 @@ def found_pet(petid):
     form =forms.FoundPetForm()
     if form.validate_on_submit():
         distinct_guess = form.distinct.data
+        print(distinct_guess)
+        print(pet.distinct)
+
         if distinct_guess == pet.distinct:
             pet.status = "waiting"
-        elif distinct_guess != form.distinct.data: 
-            print("sorry our infomation does not match our database")
-        return redirect(url_for('pets'))
+            print(pet.status)
+            flash("Looks like you found this pet. We will notify the owner that there is a potential match!")
+            pet.save()
+        elif distinct_guess != pet.distinct: 
+            flash("sorry your infomation does not match our database")
+        # return redirect(url_for('pets'))
+        return render_template("found_pet.html", form=form, pet=pet) 
     return render_template("found_pet.html", form=form, pet=pet)       
 
 
