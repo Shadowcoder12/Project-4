@@ -62,11 +62,17 @@ class RegisterForm(Form):
         validators = [
             DataRequired()
         ])
+    submit = SubmitField(
+        'Register'
+    )
+    
+
 
 
 class LoginForm(Form):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
+    submit = SubmitField('Login', validators=[DataRequired()])
 
 
 
@@ -77,7 +83,7 @@ class PetForm(Form):
     location = TextField('Where was your pet last scene', validators=[DataRequired()])
     lat = HiddenField('lat')
     long = HiddenField('long')
-    pet_image = FileField('Pet Image')
+    pet_image = FileField('Pet Image',validators=[FileRequired(), FileAllowed(['jpg','png', 'gif'],'jpg & png images only') ] )
     breed = TextField('Pet Type', validators=[DataRequired()])
     distinct = TextField('Unique property for your pet', validators=[DataRequired()])
     submit = SubmitField('Add Pet', validators=[DataRequired()])
