@@ -1,8 +1,28 @@
 {% extends "layout.html" %} {% block content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'loginerror' %}
+        <div id="myAlert" class="alert alert-danger alert-dismissible fade show" >
+        {{ message }}    
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button> 
+</div>
+{% endif %}
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+
+
 <div class="form container"> 
     <div class="row ">
     <h1 class="title" style="text-align: center;">Login </h1> 
-    <div style="margin: 25px auto; width:45%;">
+    <div style="margin: 25px auto; width:100%;">
 <form method="POST" action="" enctype=multipart/form-data>
 {{ form.hidden_tag() }} 
 
