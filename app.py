@@ -98,10 +98,10 @@ def login():
             if check_password_hash(user.password, form.password.data):
                 ## creates session
                 login_user(user) # this method comes from the flask_login package
-                flash("You've been logged in", "success")
+                flash("Login Successful", "loginsuccess")
                 return redirect('/pets')
             else:
-                flash("your email or password doesn't match", "error")
+                flash("Your email or password doesn't match. Please try again", "loginerror")
     
     return render_template('login.html', form=form)
 
@@ -173,6 +173,7 @@ def add_pet():
         image_url = url
         )
         # return render_template("pets.html", pets = pets,form = form)
+        flash("Pet Successfuly added to our database", "petsuccess")
         return redirect(url_for('pets'))
     return render_template('add_pets.html', pets = pets,form = form,)
 
