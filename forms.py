@@ -71,22 +71,22 @@ class LoginForm(Form):
 
 
 class PetForm(Form):
-    name = TextField("Pet Name")
+    name = TextField("Pet Name", validators=[DataRequired()])
     status = SelectField('Lost or found', choices=[('lost', 'Lost'), ('found','Found')])
-    description = TextAreaField("Tell me about your pet")
-    location = TextField('Where was your pet last scene')
+    description = TextAreaField("Tell me about your pet",validators=[DataRequired()])
+    location = TextField('Where was your pet last scene', validators=[DataRequired()])
     lat = HiddenField('lat')
     long = HiddenField('long')
     pet_image = FileField('Pet Image')
-    breed = TextField('Pet Type')
-    distinct = TextField('Unique property for your pet')
-    submit = SubmitField('Add Pet')
+    breed = TextField('Pet Type', validators=[DataRequired()])
+    distinct = TextField('Unique property for your pet', validators=[DataRequired()])
+    submit = SubmitField('Add Pet', validators=[DataRequired()])
     
 
 
 class EditPetForm(Form):
     name = TextField("Pet Name")
-    status = TextField('Lost or found')
+    status = SelectField('Lost or found', choices=[('Lost', 'Lost'), ('Found','Found')])
     description = TextAreaField("Tell me about your pet")
     location = TextField('Where was your pet last scene')
     lat = HiddenField('lat')
@@ -99,5 +99,5 @@ class EditPetForm(Form):
 
 
 class FoundPetForm(Form):
-    distinct = TextField('What is the unique property of this pet?')
+    distinct = TextField('What is the unique property of this pet?', validators=[DataRequired()])
     submit = SubmitField('Found Pet')
