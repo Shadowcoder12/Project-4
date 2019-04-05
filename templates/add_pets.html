@@ -4,11 +4,20 @@
     {% for field in form %}
     <div class="field">
       {% if field.errors %} {% for error in field.errors %}
-      <div class="notification error">{{ error }}</div>
-
+      <div id="myAlert" class="alert alert-danger alert-dismissible fade show" >
+                {{ error }}    
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+              </button> 
+        </div>
+      
       {% endfor %}
       {% endif %}
     {% endfor %}
+   
+
+
+
 
 
         <div class="form container"> 
