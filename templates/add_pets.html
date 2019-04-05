@@ -1,43 +1,41 @@
     {% extends "layout.html" %} {% block content %}
 
-    <section>
-            <h2>Add a pet </h2> 
-            
+        <div class="form container"> 
+        <div class="row ">
+        <h1 class="title" style="text-align: center;">Add a pet </h1> 
+        <div style="margin: 25px auto; width:45%;">
     <form method="POST" action="" enctype=multipart/form-data novalidate>
-    {{ form.hidden_tag() }}
-    <div class="field">
-    {{ form.name.label }}
-    {{ form.name(class_="input") }}
+    {{ form.hidden_tag() }}     
+    <div class="form-group">
+    {{ form.name(class_="input form-control", placeholder = "Pet Name") }}
+    </div>              
+    <div class="form-group"> 
+    {{ form.status(class_="input form-control", placeholder = "Status") }}
+    </div>              
+    <div class="form-group">
+    {{ form.location(class_="input form-control", placeholder = "Where was your pet last scene?") }}
     </div>
-    <div class="field">
-    {{ form.status.label }}
-    {{ form.status(class_="input") }}
-    </div>
-    <div class="field">
-    {{ form.location.label }}
-    {{ form.location(class_="input") }}
-    </div>
-    <div class="field">
+    <div class="form-group">
     {{ form.pet_image.label }}
-    {{ form.pet_image(class_="input") }}
+    {{ form.pet_image(class_="input form-control-file") }}        
     </div>
-    <div class="field">
-    {{ form.description.label }}
-    {{ form.description(class_="input") }}
-    </div>
-
-    <div class="field">
-    {{ form.breed.label }}
-    {{ form.breed(class_="input") }}
+    <div class="form-group">
+    {{ form.description(class_="input form-control", placeholder="Describe Your Pet") }}
     </div>
 
-    <div class="field">
-    {{ form.distinct.label }}
-    {{ form.distinct(class_="input") }}
+    <div class="form-group">
+    {{ form.breed(class_="input form-control" , placeholder="Pet Breed") }}
     </div>
-    {{ form.submit(class_="button") }}
+
+    <div class="form-group">
+    {{ form.distinct(class_="input form-control", placeholder="Unique Property of Your Pet") }}
+    </div>
+    {{ form.submit(class_="button btn btn-outline-success btn-block") }}
     </form>
-    </section>
+</div>
+
+        </div>
+</div>
 
     <!-- <script> 
         var input = document.getElementById('image').type='file';
