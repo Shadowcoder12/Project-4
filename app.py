@@ -3,9 +3,12 @@ from flask import Flask, g, jsonify, request
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from flask_bcrypt import check_password_hash
-
+from flask_mail import Mail
+from flask_mail import Message
 # Image uploader imports
 from flask_uploads import UploadSet, configure_uploads, IMAGES
+
+from secret import EMAIL_PASSWORD, SENDER_EMAIL 
 
 import forms
 import models
@@ -15,8 +18,20 @@ PORT = 8000
 
 app = Flask(__name__,instance_relative_config=True)
 
+
+
 # Sets upload destinations for image uploader
 app.config.from_pyfile('flask.cfg')
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = SENDER_EMAIL 
+app.config['MAIL_PASSWORD'] = EMAIL_PASSWORD
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+
+mail = Mail(app)
+
 
 app.secret_key = 'This is not the secret key'
 
@@ -78,6 +93,7 @@ def register():
             email=form.email.data,
             password=form.password.data,
             )
+        flash("Successfully Registered!", "registersuccess")
         return redirect(url_for('index')) # once the submissin is succesful, user is redirected to the index function which routes back to the home page
     return render_template('register.html', form=form)
 
@@ -225,6 +241,8 @@ def edit_pet(petid):
         long = form.long.data.strip()
         pet.save()
         pets = models.Pet.select().where(models.Pet.user == current_user.id)
+        unique_pet = form.name.data
+        flash(f'{unique_pet}s infomation was successfuly updated', "editpet")
         return render_template("show_pet.html",form=form, pet=pet)
     
     form.name.data = pet.name
@@ -242,7 +260,9 @@ def edit_pet(petid):
 @login_required
 def delete_pet(petid):
     pet = models.Pet.get(petid)
+    unique_pet = pet.name
     pet.delete_instance()
+    flash(f'{unique_pet} was deleted', "deletepet")
     return redirect(url_for('pets'))
 
 
@@ -253,6 +273,10 @@ def delete_pet(petid):
 @login_required
 def found_pet(petid):
     pet = models.Pet.get(models.Pet.id == petid)
+    user = models.User.get(models.User.id == pet.user_id)
+    user_email = user.email
+    print(user_email)
+
     form =forms.FoundPetForm()
     if form.validate_on_submit():
         distinct_guess = form.distinct.data
@@ -263,6 +287,12 @@ def found_pet(petid):
             pet.status = "waiting"
             print(pet.status)
             flash("Looks like you found this pet. We will notify the owner that there is a potential match!", 'success')
+
+            msg = Message("Hello, your pet may have been found!",sender=SENDER_EMAIL,recipients=[user_email])
+            msg.body = 'Hi there, someone has mentioned that your pet may have been found. Please reach out and schedule a meetup for your pet'
+            mail.send(msg)
+
+
             pet.save()
         elif distinct_guess != pet.distinct: 
             flash("sorry your infomation does not match our database", 'error')
