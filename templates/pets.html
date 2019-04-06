@@ -1,10 +1,51 @@
 {% extends "layout.html" %} {% block content %}
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+    {% if category == 'loginsuccess' %}
+        <div id="myAlert" class="alert alert-success alert-dismissible fade show" >
+        {{ message }}    
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button> 
+</div>
+{% endif %}
+
+{% if category == 'petsuccess' %}
+<div id="myAlert" class="alert alert-info alert-dismissible fade show" >
+<li>{{ message }}</li>    
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button> 
+</div>
+{% endif %}
+
+
+{% if category == 'deletepet' %}
+<div id="myAlert" class="alert alert-warning alert-dismissible fade show" >
+<li>{{ message }}</li>    
+<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+<span aria-hidden="true">&times;</span>
+</button> 
+</div>
+{% endif %}
+
+
+
+{% endfor %}
+{% endif %}
+{% endwith %}
+
+
+
 <div class="row">
 {% for pet in pets %}
     {% if pet %}
     <div class="col-sm-4"> 
 <div class="card" style="width: 18rem;">
+  
+  
         <img class="card-img-top" src="{{pet.image_url}}" alt="Card image cap">
         <div class="card-body">
           <h5 class="card-title">{{pet.name}}</h5>
@@ -22,7 +63,7 @@
       </div>
       </div>
             {% endif %}      
-            {% endfor %}
+            {% endfor %}  
         </div>
 
 <a href="{{url_for('add_pet')}}" class="btn btn-outline-dark">Add a pet</a>
