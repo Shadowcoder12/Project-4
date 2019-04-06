@@ -1,0 +1,13 @@
+
+
+.form{
+    margin: 25px auto; 
+    width:30%;
+}  
+.title{
+    color:blue;
+}
+
+p{
+    background:red !important;
+}
