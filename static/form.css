@@ -6,8 +6,6 @@
 }  
 .title{
     color:blue;
+    text-align: center;
 }
 
-p{
-    background:red !important;
-}

@@ -274,8 +274,13 @@ def delete_pet(petid):
 def found_pet(petid):
     pet = models.Pet.get(models.Pet.id == petid)
     user = models.User.get(models.User.id == pet.user_id)
-    user_email = user.email
-    print(user_email)
+    pet_owner_email = user.email
+    pet_owner_name = user.firstname
+
+    user2 = models.User.get(models.User.id == current_user.id)
+    pet_finder_name = user2.firstname + user2.lastname
+
+    print(pet_owner_email)  
 
     form =forms.FoundPetForm()
     if form.validate_on_submit():
@@ -288,8 +293,8 @@ def found_pet(petid):
             print(pet.status)
             flash("Looks like you found this pet. We will notify the owner that there is a potential match!", 'success')
 
-            msg = Message("Hello, your pet may have been found!",sender=SENDER_EMAIL,recipients=[user_email])
-            msg.body = 'Hi there, someone has mentioned that your pet may have been found. Please reach out and schedule a meetup for your pet'
+            msg = Message("Hello, your pet may have been found!",sender=SENDER_EMAIL,recipients=[pet_owner_email])
+            msg.body = f'Hi {pet_owner_name}, {pet_finder_name} has mentioned that they have found your pet. Please reach out and schedule a meetup for your pet!'
             mail.send(msg)
 
 
