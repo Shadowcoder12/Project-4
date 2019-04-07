@@ -8,7 +8,9 @@ from flask_mail import Message
 # Image uploader imports
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
-from secret import EMAIL_PASSWORD, SENDER_EMAIL 
+from secret import EMAIL_PASSWORD, SENDER_EMAIL, URL_SAFE_SECRET, APP_SECRET_KEY
+
+from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 
 import forms
 import models
@@ -33,7 +35,10 @@ app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
 
 
-app.secret_key = 'This is not the secret key'
+app.secret_key = APP_SECRET_KEY
+
+
+s = URLSafeTimedSerializer(URL_SAFE_SECRET)
 
 # APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -93,9 +98,35 @@ def register():
             email=form.email.data,
             password=form.password.data,
             )
-        flash("Successfully Registered!", "registersuccess")
+        email = form.email.data
+        name = form.firstname.data
+
+        token = s.dumps(email,salt='email-confirm')
+
+        msg = Message('Confirm Email', sender=SENDER_EMAIL, recipients=[email])
+
+        link = url_for('confirm_email', token=token, _external=True)
+
+        msg.body = f'Hello {name}! Thank you for signing up for petfinder. Please confirm your email using this link {link}'
+        mail.send(msg)
+
+        print(f'the email is {email} and the token is {token}')
+        flash(f" Hello {name}!. Please check your email inbox and verify your email confirm your email", "registersuccess")
         return redirect(url_for('index')) # once the submissin is succesful, user is redirected to the index function which routes back to the home page
     return render_template('register.html', form=form)
+
+## =======================================================
+## CONFIRM EMAIL ROUTE
+## =======================================================
+@app.route('/confirm_email/<token>')
+def confirm_email(token):
+    try:
+        email = s.loads(token, salt='email-confirm', max_age=3600)
+    except SignatureExpired:
+        return '<h1> The Token is expired! </h1>'
+    return '<h1> The Token Works! </h1>'
+
+
 
 
 ## =======================================================
