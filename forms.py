@@ -14,11 +14,11 @@ from flask_wtf.file import FileField, FileRequired, FileAllowed
 
 def name_exists(form, field):
     if User.select().where(User.username == field.data). exists():
-        raise ValidationError("User with this username already exists!")
+        raise ValidationError("Username is not available!")
 
 def email_exists(form, field):
     if User.select().where(User.email == field.data).exists():
-        raise ValidationError("Someone with this email is already in the DB")
+        raise ValidationError("Email already exists!")
     
 
 

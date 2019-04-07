@@ -53,6 +53,13 @@ images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
 
 
+def check_if_user_verified_email():
+    if current_user.verfied == False:
+        flash(f'Please Verify your email to use Petfinder')
+        return redirect(url_for('index'))
+
+
+
 @login_manager.user_loader
 def load_user(userid):
     try:
@@ -100,31 +107,37 @@ def register():
             )
         email = form.email.data
         name = form.firstname.data
+        
+        # Verify email logic
 
+        #creats token
         token = s.dumps(email,salt='email-confirm')
 
+        #sends message to user that registered for an email
         msg = Message('Confirm Email', sender=SENDER_EMAIL, recipients=[email])
 
+        #creates link to the confirm_email template
         link = url_for('confirm_email', token=token, _external=True)
 
+         #sends message to user that registered for an email
         msg.body = f'Hello {name}! Thank you for signing up for petfinder. Please confirm your email using this link {link}'
         mail.send(msg)
 
         print(f'the email is {email} and the token is {token}')
-        flash(f" Hello {name}!. Please check your email inbox and verify your email confirm your email", "registersuccess")
+        flash(f" Hello {name}!Please check your email inbox and verify your email. Your token will expire in 60 minutes", "registersuccess")
         return redirect(url_for('index')) # once the submissin is succesful, user is redirected to the index function which routes back to the home page
     return render_template('register.html', form=form)
 
 ## =======================================================
-## CONFIRM EMAIL ROUTE
+## CONFIRMED EMAIL ROUTE
 ## =======================================================
 @app.route('/confirm_email/<token>')
 def confirm_email(token):
     try:
-        email = s.loads(token, salt='email-confirm', max_age=3600)
+        email = s.loads(token, salt='email-confirm', max_age=36)
     except SignatureExpired:
-        return '<h1> The Token is expired! </h1>'
-    return '<h1> The Token Works! </h1>'
+        return render_template('token_expired.html')
+    return render_template('confirmed_email.html')
 
 
 
@@ -171,6 +184,7 @@ def logout():
 @app.route('/pets', methods=('GET','POST'))
 @login_required
 def pets():
+
     form = forms.PetForm()
     pets = models.Pet.select()
 #   pets = models.Pet.select().where(models.Pet.user == current_user.id)
