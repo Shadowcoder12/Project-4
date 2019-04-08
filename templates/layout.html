@@ -10,6 +10,7 @@
       type="text/css"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
    
     <link rel="stylesheet" type="text/css" href="static/form.css" />
     <link rel="stylesheet" href="{{ url_for('static', filename='form.css') }}">
@@ -34,6 +35,9 @@
                 <li class="nav-item active">
                   <a class="nav-link" href="{{url_for('pets')}}">Home<span class="sr-only">(current)</span></a>
               </li>
+              <li class="nav-item active">
+                  <a class="nav-link" href="{{url_for('pets')}}">Signed in as {{current_user.username}}<span class="sr-only">(current)</span></a>
+              </li>
 
               <li class="nav-item active">
                 <a class="nav-link" href="{{url_for('logout')}}">Logout <span class="sr-only">(current)</span></a>
@@ -52,20 +56,25 @@
           </div>
         </div>
         </nav>
-      <h1>{% if current_user.is_authenticated %} Hello {{current_user.username}} {%endif%}</h1>
+      <!-- <h1>{% if current_user.is_authenticated %} Hello {{current_user.username}} {%endif%}</h1> -->
       
         <div class="content-container">
-            <p>this area will contain the main content of the page</p>
+            <!-- <p>this area will contain the main content of the page</p> -->
             {% block content %}
 
 
 
-            {% endblock %}
-            <p>Here is where the footer will go</p>
-        </div>
-        <footer class="footer is-dark columns">
-            <div class="column personal-link">
-                <a href="#"><i class="fas fa-cog"></i></a><p>Leo</p></div>
+            {% endblock %}  
+        </div>  
+        <footer >
+            <div class="ui inverted black vertical footer segment">  
+                <div class="ui center aligned container">
+                    <h4 class="ui inverted header">&copy; Copyright 2019 | All rights reserved | Leonardo Fontenette</h4>
+                    <a href="https://www.facebook.com/"><i class="facebook square icon big"></i></a>
+                    <a href="https://twitter.com/"><i class="twitter square icon big"></i></a>
+                    <a href="https://www.linkedin.com/company/c"><i class="linkedin square icon big"></i></a>
+                </div>
+            </div>
         </footer>
             <script
             type="text/javascript"
@@ -91,5 +100,6 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>   
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
   </body>
 </html>

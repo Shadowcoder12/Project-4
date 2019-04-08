@@ -237,7 +237,6 @@ def add_pet():
         filename = images.save(request.files['pet_image'])
         # # Sets variable url to change image url to match filename
         url = images.url(filename)
-       
 
         models.Pet.create(
         name=form.name.data.strip(),
@@ -255,24 +254,8 @@ def add_pet():
         # return render_template("pets.html", pets = pets,form = form)
         flash("Pet Successfuly added to our database", "petsuccess")
         return redirect(url_for('pets'))
-    return render_template('add_pets.html', pets = pets,form = form,)
+    return render_template('add_pets.html', pets = pets,form = form)
 
-# @app.route("/upload", methods=['GET', 'POST'])
-# @login_required
-# def upload():
-#     target = os.path.join(APP_ROOT,'images/')
-#     print(target)
-
-#     if not os.path.isdir(target):
-#         os.mkdir(target)
-
-#     for file in request.files.getlist("file"):
-#         print(file)
-#         filename = file.filename
-#         destination = "/".join([target, filename])
-#         print(destination)
-#         file.save(destination)
-#     return 'hi'
 
 ## =======================================================
 ## SHOW PET ROUTE
@@ -280,9 +263,11 @@ def add_pet():
 @app.route("/showpet/<petid>", methods=["GET", "POST"])
 @login_required
 def show_pet(petid):
+    # grabbing the 
     pet = models.Pet.get(models.Pet.id == petid)
+    user = models.User.get(models.User.id == pet.user_id)
     print(pet)
-    return render_template("show_pet.html", pet=pet)
+    return render_template("show_pet.html", pet=pet, user = user)
 
 
 ## =======================================================
