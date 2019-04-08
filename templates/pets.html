@@ -39,11 +39,28 @@
 
 
 
-<div class="row">
+<div class="container">
+<header class="jumbotron" style="margin-top:10px; text-align:center;" > 
+<h1>Welcome to Petfinder!</h1>
+<p>Become a hero and find someone's pet!</p>
+<a href="{{url_for('add_pet')}}" class="btn btn-outline-dark">Add a pet</a>
+
+
+
+    
+
+</header>
+
+<div class="classify" style="text-align:center; margin-bottom:20px;"> 
+<a href="{{url_for('lostpets')}}" class="btn btn-outline-dark home-page-link">View Lost Pets</a>
+<a href="{{url_for('waiting_pets')}}" class="btn btn-outline-dark home-page-link">View Pets that may have been found</a>
+</div>
+
+<div class="card-deck"> 
 {% for pet in pets %}
-    {% if pet %}
-    <div class="col-sm-4"> 
-<div class="card" style="width: 18rem;">
+    {% if pet %}  
+    <div class="col-lg-4 col-md-6"> 
+<div class="card" style=" margin-bottom:30px;">
   
   
         <img class="card-img-top" src="{{pet.image_url}}" alt="Card image cap">
@@ -52,7 +69,7 @@
           <p class="card-text">Desc:{{pet.description}}</p>
           <p class="card-text">Status:{{pet.status}}</p>
           <p class="card-text">Last known Location:{{pet.location}}</p>
-          <a href="{{url_for('show_pet', petid=pet.id)}}" class="btn btn-outline-primary">Show More</a>
+          <a href="{{url_for('show_pet', petid=pet.id)}}" class="btn btn-outline-primary" >Show More</a>
 
           {% if current_user.id == pet.user_id %}
 
@@ -62,11 +79,14 @@
         </div>
       </div>
       </div>
+
+    
             {% endif %}      
             {% endfor %}  
+          </div>
         </div>
 
-<a href="{{url_for('add_pet')}}" class="btn btn-outline-dark">Add a pet</a>
+
 
 
 
