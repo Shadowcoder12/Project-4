@@ -178,7 +178,7 @@ def logout():
     return redirect(url_for('index'))
 
 ## =======================================================
-## PET ROUTE
+##  ALL PETS ROUTE
 ## =======================================================
 
 @app.route('/pets', methods=('GET','POST'))
@@ -202,6 +202,25 @@ def pets():
         )
         return render_template('pets.html', pets = pets,form = form)
     return render_template('pets.html', pets = pets,form = form, user = user)
+
+
+## =======================================================
+##  LOST PETS ROUTE
+## =======================================================
+@app.route('/lost_pets', methods=('GET','POST'))
+@login_required
+def lostpets():
+    pets = models.Pet.select().where(models.Pet.status =='Lost')
+    return render_template('pets.html', pets = pets)
+
+## =======================================================
+##  WAITING PETS ROUTE
+## =======================================================
+@app.route('/waiting_pets', methods=('GET','POST'))
+@login_required
+def waiting_pets():
+    pets = models.Pet.select().where(models.Pet.status =='waiting')
+    return render_template('pets.html', pets = pets)
 
 
 ## =======================================================
@@ -334,7 +353,7 @@ def found_pet(petid):
         print(pet.distinct)
 
         if distinct_guess == pet.distinct:
-            pet.status = "waiting"
+            pet.status = "Waiting"
             print(pet.status)
             flash("Looks like you found this pet. We will notify the owner that there is a potential match!", 'success')
 
