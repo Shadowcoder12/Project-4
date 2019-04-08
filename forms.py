@@ -107,3 +107,7 @@ class EditPetForm(Form):
 class FoundPetForm(Form):
     distinct = TextField('What is the unique property of this pet?', validators=[DataRequired()])
     submit = SubmitField('Found Pet')
+
+class CommentForm(Form):
+    text = TextAreaField('What are you thinking?', validators=[DataRequired()])
+    submit = SubmitField('Post Comment')
