@@ -3,15 +3,14 @@
         /* Always set the map height explicitly to define the size of the div
          * element that contains the map. */
          #map {
-            height: 600px;
-            width:600px;
-            float: right;
+            height: 400px;
+            width:100%;
+            margin-top:48px;
             
           }
       </style>
 
-      <div id="map"></div>
-
+  
       {% with messages = get_flashed_messages(with_categories=true) %}
       {% if messages %}
         {% for category, message in messages %}
@@ -28,29 +27,47 @@
     {% endif %}
     {% endwith %}
 
+<div class="container"> 
+  <div class="row">
+    <div class="col-md-3">
+    
+      <div id="map"></div>
+    </div>
+    <div class="col-md-9">
 
-<h2>{{pet.name}}</h2>
-<div class="card mb-3">
-        <img class="card-img-top" src="{{pet.image_url}}" alt="Card image cap">
-        <div class="card-body">
-          <h5 class="card-title">Current status:{{pet.status}}</h5>
-          <p class="card-text">Description: {{pet.description}}</p>
-          <p class="card-text">Last Known Location:{{pet.location}}</p>
-          <p class="card-text">Owner:{{ current_user.firstname }}</p>
-          <p class="card-text">Breed:{{pet.breed}}</p>
-          <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
-        </div>
-      </div>
+        <h2>{{pet.name}}</h2>
+        <div class="card mb-3">
+                <img class="card-img-top" src="{{pet.image_url}}" alt="Card image cap">
+                <div class="card-body">
+                  <h5 class="card-title">Current status:{{pet.status}}</h5>
+                  <p class="card-text">Description: {{pet.description}}</p>
+                  <p class="card-text">Last Known Location:{{pet.location}}</p>
+                  <p class="card-text">Owner:{{ current_user.firstname }}</p>
+                  <p class="card-text">Breed:{{pet.breed}}</p>
+                  <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                  {% if current_user.id == pet.user_id %}
+        
+                  <a href="{{url_for('edit_pet', petid=pet.id)}}" class="btn btn-outline-secondary">Edit Pet</a>
+                  {% else %}
+                  <a href="{{url_for('found_pet', petid=pet.id)}}" class="btn btn-outline-success card-text">Have you found my pet</a>
+                  {% endif %} 
+                </div>
+              </div>
+        
+              <input type="hidden" id="lat" value="{{pet.lat}}"  />
+              <input type="hidden" id="long" value ="{{pet.long}}" />
+        
+            
 
-      <input type="hidden" id="lat" value="{{pet.lat}}"  />
-      <input type="hidden" id="long" value ="{{pet.long}}" />
 
-      {% if current_user.id == pet.user_id %}
+    </div>
 
-      <a href="{{url_for('edit_pet', petid=pet.id)}}" class="btn btn-outline-secondary">Edit Pet</a>
-      {% else %}
-      <a href="{{url_for('found_pet', petid=pet.id)}}" class="btn btn-outline-success">Have you found my pet</a>
-      {% endif %} 
+  </div>
+</div>
+
+
+
+
       
         <script>
                 var map;
