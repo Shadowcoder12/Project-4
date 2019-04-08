@@ -125,7 +125,7 @@ def register():
 
         print(f'the email is {email} and the token is {token}')
         flash(f" Hello {name}!Please check your email inbox and verify your email. Your token will expire in 60 minutes", "registersuccess")
-        return redirect(url_for('index')) # once the submissin is succesful, user is redirected to the index function which routes back to the home page
+        return redirect(url_for('logout')) # once the submissin is succesful, user is redirected to the index function which routes back to the home page
     return render_template('register.html', form=form)
 
 ## =======================================================
@@ -266,8 +266,9 @@ def show_pet(petid):
     # grabbing the 
     pet = models.Pet.get(models.Pet.id == petid)
     user = models.User.get(models.User.id == pet.user_id)
+    comments = models.Comment.select().where(models.Comment.pet_id == petid)
     print(pet)
-    return render_template("show_pet.html", pet=pet, user = user)
+    return render_template("show_pet.html", pet=pet, user = user, comments = comments)
 
 
 ## =======================================================
@@ -363,9 +364,24 @@ def found_pet(petid):
         return render_template("found_pet.html", form=form, pet=pet) 
     return render_template("found_pet.html", form=form, pet=pet)       
 
+## =======================================================
+## ADD COMMENT ROUTE
+## =======================================================
+@app.route("/add_comment/<petid>", methods=["GET", "POST"])
+@login_required
+def add_comment(petid):
+    form = forms.CommentForm()
+    specific_pet_id = petid
+    if form.validate_on_submit():
+        models.Comment.create(
+        user = current_user.id,
+        pet = specific_pet_id,
+        text=form.text.data.strip()
+        )   
+        # redirect(url_for('show_pet'))
+        return redirect(f'/showpet/{specific_pet_id}')
 
-
-
+    return render_template("add_comment.html", form=form)
 
 
 
