@@ -39,10 +39,13 @@
         <div class="card mb-3">
                 <img class="card-img-top" src="{{pet.image_url}}" alt="Card image cap">
                 <div class="card-body">
+                  <div class="caption-full"> 
+                  <h4 class="pull-right"> Reward: $9.00 a night</h4>
+                </div>
                   <h5 class="card-title">Current status:{{pet.status}}</h5>
                   <p class="card-text">Description: {{pet.description}}</p>
                   <p class="card-text">Last Known Location:{{pet.location}}</p>
-                  <p class="card-text">Owner:{{ current_user.firstname }}</p>
+                  <p class="card-text">Owner:{{ user.username }}</p>
                   <p class="card-text">Breed:{{pet.breed}}</p>
                   <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
                   {% if current_user.id == pet.user_id %}
