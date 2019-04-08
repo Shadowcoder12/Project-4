@@ -405,9 +405,26 @@ def delete_comment(commentid, petid):
         comment.delete_instance()
     return redirect(f'/showpet/{specific_pet_id}')
     
+## =======================================================
+## EDIT COMMENT ROUTE
+## =======================================================
+@app.route("/edit_comment/<commentid>/<petid>", methods=["GET", "POST"])
+@login_required
+def edit_comment(commentid, petid):
+    form = forms.CommentForm()
+    specific_pet_id = petid
+    comment = models.Comment.get(models.Comment.id == commentid)
+    user = current_user.id
+    if form.validate_on_submit():
+        comment.text = form.text.data
+        comment.save()
+        return redirect(f'/showpet/{specific_pet_id}')
+
+    form.text.data = comment.text
+    return render_template("add_comment.html", form=form)
+
+
     
-
-
 
 if __name__ == '__main__':
     models.initialize()
