@@ -59,9 +59,16 @@
         
               <input type="hidden" id="lat" value="{{pet.lat}}"  />
               <input type="hidden" id="long" value ="{{pet.long}}" />
-        
-            
 
+
+              <a href="{{url_for('add_comment', petid=pet.id)}}" class="btn btn-outline-secondary">Add Comment</a>
+
+              {% for comment in comments %}
+            {% if comment %}  
+              
+            <li>{{comment.text}}</li>
+              {% endif %}
+              {% endfor %}
 
     </div>
 
