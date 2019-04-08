@@ -308,11 +308,20 @@ def edit_pet(petid):
 @app.route("/deletepet/<petid>")
 @login_required
 def delete_pet(petid):
-    pet = models.Pet.get(petid)
-    unique_pet = pet.name
-    pet.delete_instance()
-    flash(f'{unique_pet} was deleted', "deletepet")
-    return redirect(url_for('pets'))
+    pet = models.Pet.get(models.Pet.id == petid)
+    user= current_user.id
+    print(user)
+    print(pet.user_id)
+    #checking db toto see if the current user actually created the pet by id
+    if user == pet.user_id:
+        unique_pet = pet.name
+        pet.delete_instance()
+        flash(f'{unique_pet} was deleted', "deletepet")
+        return redirect(url_for('pets'))
+
+    else:
+        flash(f' Sorry{current_user.username}, you do not have permission to delete {pet.name} from our Database,"deletepet')
+        return redirect(url_for('pets'))
 
 
 ## =======================================================

@@ -78,7 +78,7 @@ class LoginForm(Form):
 
 class PetForm(Form):
     name = TextField("Pet Name", validators=[DataRequired()])
-    status = SelectField('Lost or found', choices=[('lost', 'Lost'), ('found','Found')])
+    status = SelectField('Lost or found', choices=[('Lost', 'Lost'), ('Found','Found')])
     description = TextAreaField("Tell me about your pet",validators=[DataRequired()])
     location = TextField('Where was your pet last scene', validators=[DataRequired()])
     lat = HiddenField('lat')
