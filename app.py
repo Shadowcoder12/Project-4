@@ -385,7 +385,7 @@ def add_comment(petid):
         pet = specific_pet_id,
         text=form.text.data.strip()
         )   
-        # redirect(url_for('show_pet'))
+        flash('Comment Created!', "editpet")
         return redirect(f'/showpet/{specific_pet_id}')
 
     return render_template("add_comment.html", form=form)
@@ -398,7 +398,11 @@ def add_comment(petid):
 def delete_comment(commentid, petid):
     specific_pet_id = petid
     comment = models.Comment.get(models.Comment.id == commentid)
-    comment.delete_instance()
+    user = current_user.id
+    print(f'this is the comment object {comment}')
+    if user == comment.user_id:
+        flash(' Your Comment was deleted!', "editpet")
+        comment.delete_instance()
     return redirect(f'/showpet/{specific_pet_id}')
     
     
