@@ -61,14 +61,46 @@
               <input type="hidden" id="long" value ="{{pet.long}}" />
 
 
-              <a href="{{url_for('add_comment', petid=pet.id)}}" class="btn btn-outline-secondary">Add Comment</a>
-
-              {% for comment in comments %}
+            
+        <!-- {% for comment in comments %}
             {% if comment %}  
               
             <li>{{comment.text}}</li>
               {% endif %}
+              {% endfor %} -->
+
+              <div class="ui comments">
+                  <h3 class="ui dividing header">Comments</h3>
+                  {% for comment in comments %}
+                  {% if comment %} 
+                  <div class="comment">
+                    <a class="avatar">
+                      <img src="{{pet.image_url}}">
+                    </a>
+                    <div class="content"> 
+                      <a class="author">{{comment.user.username}}</a>
+                      <div class="metadata">
+                        <span class="date">Today at 5:42PM</span>
+                      </div>
+                      <div class="text">
+                        {{comment.text}}
+                      </div>
+                      <div class="actions">
+                        <a class="reply">Reply</a>
+                      </div>
+                    </div>
+                  </div>
+
+                  {% endif %}
               {% endfor %}
+              <a href="{{url_for('add_comment', petid=pet.id)}}" class="btn btn-outline-secondary">Add Comment</a>
+                 
+                  
+
+
+                </div>
+
+
 
     </div>
 
