@@ -77,12 +77,34 @@ class Pet(Model):
         except IntegrityError:
             raise ValueError("Exact Pet already exists")
 
+class Comment(Model):
+    __table_args__ = {'extend_existing': True} 
 
+    text = CharField()
+    datepost = DateTimeField(default=date.today().strftime("%Y-%m-%d"))
+    user = ForeignKeyField(User, backref="comment")
+    pet = ForeignKeyField(Pet, backref="comment")
+
+    class Meta:
+        database = DATABASE
+        order_by = ('-timestamp',)
+
+
+    @classmethod
+    def create_comment(cls, text,user, pet):
+        try:
+            cls.create(
+                text = text,
+                user = user,
+                pet = pet
+            )
+        except IntegrityError:
+            raise ValueError("Something went wrong when this comment was created!")
 
 
 
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User,Pet], safe=True)
+    DATABASE.create_tables([User,Pet, Comment], safe=True)
     DATABASE.close()
