@@ -267,6 +267,13 @@ def show_pet(petid):
     pet = models.Pet.get(models.Pet.id == petid)
     user = models.User.get(models.User.id == pet.user_id)
     comments = models.Comment.select().where(models.Comment.pet_id == petid)
+    print(f' this is the id of the {user}')
+    user2 = models.User.select()
+    
+    # comment_to_user = models.Comment.get(models.Comment.user_id == user2)
+    # print(comment_to_user)
+    # user_that_comment = models.User.select().where(user2.id == comment_to_user)
+
     print(pet)
     return render_template("show_pet.html", pet=pet, user = user, comments = comments)
 
@@ -383,7 +390,18 @@ def add_comment(petid):
 
     return render_template("add_comment.html", form=form)
 
-
+## =======================================================
+## DELETE COMMENT ROUTE
+## =======================================================
+@app.route("/delete_comment/<commentid>/<petid>", methods=["GET", "POST"])
+@login_required
+def delete_comment(commentid, petid):
+    specific_pet_id = petid
+    comment = models.Comment.get(models.Comment.id == commentid)
+    comment.delete_instance()
+    return redirect(f'/showpet/{specific_pet_id}')
+    
+    
 
 
 
