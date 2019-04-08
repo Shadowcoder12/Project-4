@@ -415,16 +415,22 @@ def edit_comment(commentid, petid):
     specific_pet_id = petid
     comment = models.Comment.get(models.Comment.id == commentid)
     user = current_user.id
-    if form.validate_on_submit():
-        comment.text = form.text.data
-        comment.save()
+    #checking to see if the user actually made the comment , if not , then redirect back to the show page
+    if user != comment.user_id:
         return redirect(f'/showpet/{specific_pet_id}')
+
+    if form.validate_on_submit():
+        if user == comment.user_id: # if the user id matches the user id in the comment table , then the user can edit the comment
+            comment.text = form.text.data
+            comment.save()
+            return redirect(f'/showpet/{specific_pet_id}')
+            
 
     form.text.data = comment.text
     return render_template("add_comment.html", form=form)
 
 
-    
+
 
 if __name__ == '__main__':
     models.initialize()

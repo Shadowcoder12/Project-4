@@ -81,7 +81,7 @@ class Comment(Model):
     __table_args__ = {'extend_existing': True} 
 
     text = CharField()
-    datepost = DateTimeField(default=date.today().strftime("%Y-%m-%d"))
+    datepost = DateTimeField(default=date.today().strftime("%B-%m-%d"))
     user = ForeignKeyField(User, backref="comment")
     pet = ForeignKeyField(Pet, backref="comment")
 
