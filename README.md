@@ -58,3 +58,9 @@ APP_SECRET_KEY = "Secret key for your app"
 ```
 ### User Stories
 - A user must register for an account
+- A user must validate their email
+- A user can sign in to view the different categories of pets
+- A user can create a post about a lost pet or found pet 
+- A user can edit and delete their pets information 
+- A user can confirm if they found other user's pet 
+- A user can leave comments about a pet
