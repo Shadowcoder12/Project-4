@@ -233,7 +233,7 @@ def add_pet():
     form = forms.PetForm()
     pets = models.Pet.select().where(models.Pet.user == current_user.id)
     if form.validate_on_submit():
-        # # Sets variable filename to image file of uploaded 'recipe_image' from form
+        # # Sets variable filename to image file of uploaded 'pet_image' from form
         filename = images.save(request.files['pet_image'])
         # # Sets variable url to change image url to match filename
         url = images.url(filename)
