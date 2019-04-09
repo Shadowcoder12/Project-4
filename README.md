@@ -46,3 +46,11 @@ wtforms
 $ pip3 install flask flask-login flask-bcrypt peewee flask-wtf itsdangerous wtforms
 $ pip3 freeze > requirements.txt
 ```
+### The App
+You will need to create a secret.py that contains the following variables 
+EMAIL_PASSWORD = "password for the email below "
+SENDER_EMAIL = "email that you want to send to users after registration and finding pet"
+
+URL_SAFE_SECRET = "secret key for token serializer
+
+APP_SECRET_KEY = "Secret key for your app"
