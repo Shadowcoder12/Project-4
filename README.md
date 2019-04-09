@@ -27,7 +27,22 @@ cd Project-4
 ```
 
 ```
-1$ pip3 install virtualenv
+$ pip3 install virtualenv
 $ virtualenv .env -p python3
 $ source .env/bin/activate
+```
+### Dependencies
+``` 
+bcrypt
+flask
+flask-bcrypt
+flask-login
+flask-wtf
+itsdangerous
+peewee
+wtforms
+``` 
+```
+$ pip3 install flask flask-login flask-bcrypt peewee flask-wtf itsdangerous wtforms
+$ pip3 freeze > requirements.txt
 ```
