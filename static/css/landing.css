@@ -51,22 +51,22 @@ body{
 }
 
 .slideshow li:nth-child(1) { 
-    background-image: url('images/rabbit_landing.jpeg') 
+    background-image: url('../images/rabbit_landing.jpeg') 
   }
   .slideshow li:nth-child(2) { 
-    background-image: url('images/poodle_landing.jpeg');
+    background-image: url('../images/poodle_landing.jpeg');
     animation-delay: 10s; 
   }
   .slideshow li:nth-child(3) { 
-    background-image: url('images/sleepingCat_landing.jpeg');
+    background-image: url('../images/sleepingCat_landing.jpeg');
     animation-delay: 20s; 
   }
   .slideshow li:nth-child(4) { 
-    background-image: url('images/eagle_landing.jpeg');
+    background-image: url('../images/eagle_landing.jpeg');
     animation-delay: 30s; 
   }
   .slideshow li:nth-child(5) { 
-    background-image: url('images/eagle_landing.jpeg');
+    background-image: url('../images/eagle_landing.jpeg');
     animation-delay: 40s; 
   }
 
