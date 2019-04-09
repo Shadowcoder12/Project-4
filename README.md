@@ -7,7 +7,7 @@ Users must create an account with a valid email and verify that email to utilize
 
 ## Technologies Used 
 
-### Languages
+ Languages
 - Python 
 - Flask
 - Jinja 
