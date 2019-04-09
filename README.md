@@ -21,4 +21,13 @@ Users must create an account with a valid email and verify that email to utilize
 ## Installation Steps 
 
 ### Virtual Env
-git clone 
+```
+git clone https://github.com/lfonzi62/Project-4.git
+cd Project-4 
+```
+
+```
+1$ pip3 install virtualenv
+$ virtualenv .env -p python3
+$ source .env/bin/activate
+```
