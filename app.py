@@ -267,20 +267,16 @@ def show_pet(petid):
     pet = models.Pet.get(models.Pet.id == petid)
     user = models.User.get(models.User.id == pet.user_id)
 
-    allcomments = models.Comment.select()
-    print(f' all comments id? {allcomments}')
+    allcomments = models.Comment.get()
+    print(allcomments)
     subComments = models.SubComment.select().where(models.SubComment.comment_id == allcomments)
     comments = models.Comment.select().where(models.Comment.pet_id == petid)
 
     print(f' this is the id of the {user}')
     user2 = models.User.select()
     
-    # comment_to_user = models.Comment.get(models.Comment.user_id == user2)
-    # print(comment_to_user)
-    # user_that_comment = models.User.select().where(user2.id == comment_to_user)
-
     print(pet)
-    return render_template("show_pet.html", pet=pet, user = user, comments = comments, subComments =subComments, allcomments=allcomments)
+    return render_template("show_pet.html", pet=pet, user = user, comments = comments, subComments =subComments)
 
 
 ## =======================================================
@@ -448,7 +444,8 @@ def add_sub_comment(petid, commentid):
         models.SubComment.create(
         user = current_user.id,
         comment = comment_id,
-        text=form.text.data.strip()
+        text=form.text.data.strip(),
+        pet = specific_pet_id
         ) 
         flash('Comment Created!', "editpet")
         return redirect(f'/showpet/{specific_pet_id}')

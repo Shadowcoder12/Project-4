@@ -108,6 +108,7 @@ class SubComment(Model):
     datepost = DateTimeField(default=date.today().strftime("%B-%m-%d"))
     user = ForeignKeyField(User, backref="subcomment")
     comment = ForeignKeyField(Comment, backref="subcomment")
+    pet = ForeignKeyField(Pet, backref="subcomment")
 
 
     class Meta:

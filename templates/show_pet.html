@@ -86,8 +86,8 @@
                       </div>
                     </div>
 
-              {% for subcomment in subComments %}
-              {% if subcomment %} 
+              {% for subcomment in subComment %}
+              {% if subcomment%} 
   <div class="comments">
         <div class="comment">
           <a class="avatar">
@@ -107,7 +107,9 @@
           </div>
         </div>
       </div>
+
       {% endif %}
+
       {% endfor %}
 
 
