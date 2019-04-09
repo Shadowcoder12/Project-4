@@ -1,7 +1,12 @@
 /* FADE IN/OUT LOGIC TAKEN FROM UDEMY TUTORIAL */
 
-h1{
+.title{
     color:white;
+    margin-bottom: 30px;
+}
+
+a{
+  margin-right: 30px;
 }
 .btn-outline-dark {
     color: whitesmoke;

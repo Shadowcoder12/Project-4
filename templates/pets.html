@@ -14,7 +14,7 @@
 
 {% if category == 'petsuccess' %}
 <div id="myAlert" class="alert alert-info alert-dismissible fade show" >
-<li>{{ message }}</li>    
+{{ message }} 
 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button> 
@@ -24,7 +24,7 @@
 
 {% if category == 'deletepet' %}
 <div id="myAlert" class="alert alert-warning alert-dismissible fade show" >
-<li>{{ message }}</li>    
+{{ message }}   
 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button> 
@@ -40,7 +40,7 @@
 
 
 <div class="container">
-<header class="jumbotron" style="margin-top:10px; text-align:center;" > 
+<header class="jumbotron show" style="margin-top:10px; text-align:center;" > 
 <h1>Welcome to Petfinder!</h1>
 <p>Become a hero and find someone's pet!</p>
 <a href="{{url_for('add_pet')}}" class="btn btn-outline-dark">Add a pet</a>

@@ -1,30 +1,20 @@
 {% extends "layout.html" %} {% block content %}
-<form method="POST" action="" novalidate>
-    {{ form.hidden_tag() }}
-    
-    <div class="field">
-    {{ form.distinct.label }}
-    {{ form.distinct(class_="input") }}
-    </div>
-    {{ form.submit(class_="button") }}
-    </form>
-    </section>
 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-    {% for category, message in messages %}
-    {% if category == 'success' %}
-        <div id="myAlert" class="alert alert-success alert-dismissible fade show" >
-        {{ message }}    
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button> 
+{% with messages = get_flashed_messages(with_categories=true) %}
+{% if messages %}
+  {% for category, message in messages %}
+  {% if category == 'success' %}
+      <div id="myAlert" class="alert alert-success alert-dismissible fade show" >
+      {{ message }}    
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button> 
 </div>
 {% endif %}
 
 {% if category == 'error' %}
 <div id="myAlert" class="alert alert-danger alert-dismissible fade show" >
-<li>{{ message }}</li>    
+{{ message }}   
 <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 <span aria-hidden="true">&times;</span>
 </button> 
@@ -36,5 +26,26 @@
 {% endfor %}
 {% endif %}
 {% endwith %}
+
+
+
+
+<div class="form container"> 
+    <div class="row ">
+    <h1 class="title"> Did you find {{pet.name}} ?</h1> 
+    <div class="form-container">
+<form method="POST" action="" enctype=multipart/form-data>
+{{ form.hidden_tag() }}     
+<div class="form-group">
+{{ form.distinct(class_="input form-control", placeholder = "What is the unique property of this pet?") }}
+</div>       
+
+{{ form.submit(class_="button btn btn-outline-success btn-block") }}
+</form>
+</div>
+
+    </div>
+</div>
+
 
           {% endblock %}

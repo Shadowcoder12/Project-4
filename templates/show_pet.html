@@ -1,14 +1,5 @@
 {% extends "layout.html" %} {% block content %}
-<style>
-        /* Always set the map height explicitly to define the size of the div
-         * element that contains the map. */
-         #map {
-            height: 400px;
-            width:100%;
-            margin-top:48px;
-            
-          }
-      </style>
+
 
   
       {% with messages = get_flashed_messages(with_categories=true) %}
@@ -97,7 +88,7 @@
 
                   {% endif %}
               {% endfor %}
-              <a href="{{url_for('add_comment', petid=pet.id)}}" class="btn btn-outline-secondary">Add Comment</a>
+              <a href="{{url_for('add_comment', petid=pet.id)}}" class="btn btn-outline-secondary edit-comment">Add Comment</a>
                  
                   
 

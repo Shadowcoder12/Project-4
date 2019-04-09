@@ -285,6 +285,7 @@ def show_pet(petid):
 @login_required
 def edit_pet(petid):
     pet = models.Pet.get(models.Pet.id == petid)
+    user = models.User.get(models.User.id == pet.user_id)
     print(pet)
     form = forms.EditPetForm()
     if form.validate_on_submit():
@@ -300,7 +301,7 @@ def edit_pet(petid):
         pets = models.Pet.select().where(models.Pet.user == current_user.id)
         unique_pet = form.name.data
         flash(f'{unique_pet}s infomation was successfuly updated', "editpet")
-        return render_template("show_pet.html",form=form, pet=pet)
+        return render_template("show_pet.html",form=form, pet=pet, user = user)
     
     form.name.data = pet.name
     form.status.data = pet.status
@@ -366,7 +367,7 @@ def found_pet(petid):
 
             pet.save()
         elif distinct_guess != pet.distinct: 
-            flash("sorry your infomation does not match our database", 'error')
+            flash(" Your guess does not match our database", 'error')
         # return redirect(url_for('pets'))
         return render_template("found_pet.html", form=form, pet=pet) 
     return render_template("found_pet.html", form=form, pet=pet)       

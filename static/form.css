@@ -1,11 +1,53 @@
-
+body{
+    background-color: whitesmoke
+}
 
 .form{
     margin: 25px auto; 
     width:30%;
 }  
 .title{
-    color:blue;
+    color:wheat;
     text-align: center;
 }
 
+#map {
+    height: 400px;
+    width:100%;
+    margin-top:48px;
+    
+  }
+  .edit-comment{
+    margin-top: 30px;
+    margin-bottom: 30px;
+  }
+
+
+  .title {
+text-align: center;
+}
+
+.form-container{
+    margin: 25px auto; 
+    width:100%;
+}
+
+.navbar{
+    color:grey;
+
+}
+.navbar-light .navbar-brand {
+    color: wheat;
+}
+
+.navbar-light .navbar-nav .active>.nav-link, .navbar-light .navbar-nav .nav-link.active, .navbar-light .navbar-nav .nav-link.show, .navbar-light .navbar-nav .show>.nav-link {
+    color: white;
+}
+ div.jumbotron{
+    text-align:center;}
+
+
+
+.show{ 
+    margin-top:10px;
+    text-align:center;}
