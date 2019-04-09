@@ -64,3 +64,4 @@ APP_SECRET_KEY = "Secret key for your app"
 - A user can edit and delete their pets information 
 - A user can confirm if they found other user's pet 
 - A user can leave comments about a pet
+Also found here https://trello.com/b/5mWq9FNR/petfinder
