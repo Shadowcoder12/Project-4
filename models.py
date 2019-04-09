@@ -102,9 +102,34 @@ class Comment(Model):
             raise ValueError("Something went wrong when this comment was created!")
 
 
+class SubComment(Model):
+    __table_args__ = {'extend_existing': True}
+    text = CharField() 
+    datepost = DateTimeField(default=date.today().strftime("%B-%m-%d"))
+    user = ForeignKeyField(User, backref="subcomment")
+    comment = ForeignKeyField(Comment, backref="subcomment")
+
+
+    class Meta:
+        database = DATABASE
+        order_by = ('-timestamp',)
+    
+
+    @classmethod
+    def create_comment(cls, text,user, comment):
+        try:
+            cls.create(
+                text = text,
+                user = user,
+                comment = comment
+            )
+        except IntegrityError:
+            raise ValueError("Something went wrong when this subcomment was created!")
+
+
 
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([User,Pet, Comment], safe=True)
+    DATABASE.create_tables([User,Pet, Comment, SubComment], safe=True)
     DATABASE.close()

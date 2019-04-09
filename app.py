@@ -266,7 +266,12 @@ def show_pet(petid):
     # grabbing the 
     pet = models.Pet.get(models.Pet.id == petid)
     user = models.User.get(models.User.id == pet.user_id)
+
+    allcomments = models.Comment.select()
+    print(f' all comments id? {allcomments}')
+    subComments = models.SubComment.select().where(models.SubComment.comment_id == allcomments)
     comments = models.Comment.select().where(models.Comment.pet_id == petid)
+
     print(f' this is the id of the {user}')
     user2 = models.User.select()
     
@@ -275,7 +280,7 @@ def show_pet(petid):
     # user_that_comment = models.User.select().where(user2.id == comment_to_user)
 
     print(pet)
-    return render_template("show_pet.html", pet=pet, user = user, comments = comments)
+    return render_template("show_pet.html", pet=pet, user = user, comments = comments, subComments =subComments, allcomments=allcomments)
 
 
 ## =======================================================
@@ -428,6 +433,26 @@ def edit_comment(commentid, petid):
             
 
     form.text.data = comment.text
+    return render_template("add_comment.html", form=form)
+
+## =======================================================
+## SUB COMMENT ROUTE
+## =======================================================
+@app.route("/sub_comment/<commentid>/<petid>", methods=["GET", "POST"])
+@login_required
+def add_sub_comment(petid, commentid):
+    form = forms.CommentForm()
+    specific_pet_id = petid
+    comment_id = models.Comment.get(models.Comment.id == commentid)
+    if form.validate_on_submit():
+        models.SubComment.create(
+        user = current_user.id,
+        comment = comment_id,
+        text=form.text.data.strip()
+        ) 
+        flash('Comment Created!', "editpet")
+        return redirect(f'/showpet/{specific_pet_id}')
+    
     return render_template("add_comment.html", form=form)
 
 
