@@ -7,7 +7,7 @@ Are you tired of losing your pets and relying on outdated paper flyers to reunit
 
 ## Technologies Used 
 
- ## Languages
+ ### Languages
 - Python 
 - Javascipt 
 - HTML
