@@ -7,9 +7,18 @@ Users must create an account with a valid email and verify that email to utilize
 
 ## Technologies Used 
 
- Languages
+ ## Languages
 - Python 
-- Flask
-- Jinja 
 - Javascipt 
-- Google Maps API
+- HTML
+- CSS
+
+
+ ## Frameworks
+ - Bootstrap 
+ - Semantic UI
+ 
+## Installation Steps 
+
+### Virtual Env
+git clone 
