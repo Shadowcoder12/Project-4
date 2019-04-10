@@ -53,6 +53,7 @@ login_manager.login_view = 'login'
 images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
 
+heroku config:set ON_HEROKU=1
 
 
 # def check_if_user_verified_email(f):
@@ -539,6 +540,10 @@ def edit_subcomment(subcommentid, petid):
     form.text.data = subcomment.text
     return render_template("add_comment.html", form=form)
 
+
+if 'ON_HEROKU' in os.environ:
+    print('hitting ')
+    models.initialize()
 
 
 if __name__ == '__main__':

@@ -8,7 +8,10 @@ from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
 from flask_wtf.file import FileField, FileRequired
 
-DATABASE = SqliteDatabase('petfinder.db')
+from playhouse.db_url import connect
+
+DATABASE = connect(os.environ.get('DATABASE_URL'))
+# DATABASE = SqliteDatabase('petfinder.db')
 
 class User(UserMixin, Model):
     __table_args__ = {'extend_existing': True} 
