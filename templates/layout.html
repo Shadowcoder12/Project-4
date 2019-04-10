@@ -55,10 +55,10 @@
           </div>
         </div>
         </nav>
-      <!-- <h1>{% if current_user.is_authenticated %} Hello {{current_user.username}} {%endif%}</h1> -->
+    
       
         <div class="content-container">
-            <!-- <p>this area will contain the main content of the page</p> -->
+           
             {% block content %}
 
 
@@ -69,9 +69,8 @@
             <div id="footer" class="ui inverted grey vertical footer segment">  
                 <div class="ui center aligned container">
                     <h4 class="ui inverted header">&copy; Copyright 2019 | All rights reserved | Leonardo Fontenette</h4>
-                    <a href="https://www.facebook.com/"><i class="facebook square icon big"></i></a>
-                    <a href="https://twitter.com/"><i class="twitter square icon big"></i></a>
-                    <a href="https://www.linkedin.com/company/c"><i class="linkedin square icon big"></i></a>
+                    <a href="https://github.com/lfonzi62"><i class="github square icon big"></i></a>
+                    <a href="https://www.linkedin.com/in/leonardo-fontenette/"><i class="linkedin square icon big"></i></a>
                 </div>
             </div>
         </footer>
@@ -88,9 +87,6 @@
                     var place = autocomplete.getPlace();
                     document.getElementById('lat').value = place.geometry.location.lat();
                     document.getElementById('long').value = place.geometry.location.lng();
-                    //alert("This function is working!");
-                    //alert(place.name);
-                   // alert(place.address_components[0].long_name);
         
                 });
             }

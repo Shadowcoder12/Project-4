@@ -68,7 +68,7 @@
           <h5 class="card-title">{{pet.name}}</h5>
           <p class="card-text">Desc:{{pet.description}}</p>
           <p class="card-text">Status:{{pet.status}}</p>
-          <p class="card-text">Last known Location:{{pet.location}}</p>
+          <!-- <p class="card-text">Last known Location:{{pet.location}}</p> -->
           <a href="{{url_for('show_pet', petid=pet.id)}}" class="btn btn-outline-primary" >Show More</a>
 
           {% if current_user.id == pet.user_id %}

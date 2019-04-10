@@ -263,13 +263,17 @@ def add_pet():
 @app.route("/showpet/<petid>", methods=["GET", "POST"])
 @login_required
 def show_pet(petid):
-    # grabbing the 
+    # grabbing a specific pet by id
     pet = models.Pet.get(models.Pet.id == petid)
+    # grabbing the user who created that pet 
     user = models.User.get(models.User.id == pet.user_id)
 
-    allcomments = models.Comment.get()
+    allcomments = models.Comment.select()
     print(allcomments)
+
     subComments = models.SubComment.select().where(models.SubComment.comment_id == allcomments)
+
+    # grabbing all comments associated with a specific pet
     comments = models.Comment.select().where(models.Comment.pet_id == petid)
 
     print(f' this is the id of the {user}')
@@ -302,7 +306,8 @@ def edit_pet(petid):
         pets = models.Pet.select().where(models.Pet.user == current_user.id)
         unique_pet = form.name.data
         flash(f'{unique_pet}s infomation was successfuly updated', "editpet")
-        return render_template("show_pet.html",form=form, pet=pet, user = user)
+        return redirect(f'/showpet/{pet}')
+        # return render_template("show_pet.html",form=form, pet=pet, user = user)
     
     form.name.data = pet.name
     form.status.data = pet.status
@@ -322,7 +327,7 @@ def delete_pet(petid):
     user= current_user.id
     print(user)
     print(pet.user_id)
-    #checking db toto see if the current user actually created the pet by id
+    #checking db to see if the current user actually created the pet by id, if so then user can delete the pet
     if user == pet.user_id:
         unique_pet = pet.name
         pet.delete_instance()
@@ -342,9 +347,12 @@ def delete_pet(petid):
 def found_pet(petid):
     pet = models.Pet.get(models.Pet.id == petid)
     user = models.User.get(models.User.id == pet.user_id)
+
+    #grabbing the pet owner's name 
     pet_owner_email = user.email
     pet_owner_name = user.firstname
 
+    # current logged in user
     user2 = models.User.get(models.User.id == current_user.id)
     pet_finder_name = user2.firstname + user2.lastname
 
@@ -355,7 +363,7 @@ def found_pet(petid):
         distinct_guess = form.distinct.data
         print(distinct_guess)
         print(pet.distinct)
-
+        #changes status to waiting if the current user knows the distinct feature of the pet and sends the original pet owner an email
         if distinct_guess == pet.distinct:
             pet.status = "Waiting"
             print(pet.status)
@@ -365,7 +373,7 @@ def found_pet(petid):
             msg.body = f'Hi {pet_owner_name}, {pet_finder_name} has mentioned that they have found your pet. Please reach out and schedule a meetup for your pet!'
             mail.send(msg)
 
-
+            #updating the status of the pet
             pet.save()
         elif distinct_guess != pet.distinct: 
             flash(" Your guess does not match our database", 'error')
@@ -402,6 +410,8 @@ def delete_comment(commentid, petid):
     comment = models.Comment.get(models.Comment.id == commentid)
     user = current_user.id
     print(f'this is the comment object {comment}')
+
+    #checking to see if the current user equals the id of the user who created the comment
     if user == comment.user_id:
         flash(' Your Comment was deleted!', "editpet")
         comment.delete_instance()

@@ -66,7 +66,7 @@
                   {% if comment %} 
                   <div class="comment">
                     <a class="avatar">
-                      <img src="{{pet.image_url}}">
+                      <img src="../static/images/default-user-image.png">
                     </a>
                     <div class="content"> 
                       <a class="author">{{comment.user.username}}</a>
@@ -87,7 +87,7 @@
                     </div>
 
               {% for subcomment in subComment %}
-              {% if subcomment%} 
+              {% if subcomment %}
   <div class="comments">
         <div class="comment">
           <a class="avatar">
@@ -108,7 +108,8 @@
         </div>
       </div>
 
-      {% endif %}
+      {% endif%}
+     
 
       {% endfor %}
 
