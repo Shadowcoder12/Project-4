@@ -289,7 +289,9 @@ def show_pet(petid):
     allcomments = models.Comment.select()
     print(allcomments)
 
-    subComments = models.SubComment.select().where(models.SubComment.comment_id == allcomments)
+    subComments = models.SubComment.select()
+
+    print(subComments)
 
     # grabbing all comments associated with a specific pet
     comments = models.Comment.select().where(models.Comment.pet_id == petid)

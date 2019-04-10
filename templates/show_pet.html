@@ -1,5 +1,7 @@
 {% extends "layout.html" %} {% block content %}
 
+{% from 'macros.html' import render_subcomment %}
+
 
   
       {% with messages = get_flashed_messages(with_categories=true) %}
@@ -71,7 +73,7 @@
                       <a class="author">{{comment.user.username}}</a>
                       
                       <div class="text">
-                        {{comment.text}}
+                        {{comment.text}} 
                       </div>
 
                       <div class="actions">
@@ -85,31 +87,10 @@
                       </div>
                     </div>
 
-              {% for subcomment in subComment %}
-              {% if subcomment %}
-  <div class="comments">
-        <div class="comment">
-          <a class="avatar">
-            <img src="/images/avatar/small/jenny.jpg">
-          </a>
-          <div class="content">
-            <a class="author">Jacob</a>
-            <div class="metadata">
-              <span class="date">Just now</span>
-            </div>
-            <div class="text">
-                {{subcomment.text}}
-            </div>
-            <div class="actions">
-              <a class="reply">Reply</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
+              {% for subComment in subComments %}
+              {% if subComment.comment_id == comment.id %}
+                {{ render_subcomment(subComment)}}
       {% endif%}
-     
-
       {% endfor %}
 
 
