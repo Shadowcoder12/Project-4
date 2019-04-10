@@ -15,6 +15,7 @@ Are you tired of losing your pets and relying on outdated paper flyers to reunit
 
 
  ### Frameworks
+ - Flask
  - Bootstrap 
  - Semantic UI
  
@@ -65,3 +66,12 @@ APP_SECRET_KEY = "Secret key for your app"
 - A user can confirm if they found other user's pet 
 - A user can leave comments about a pet
 - Also found here while publically available https://trello.com/b/5mWq9FNR/petfinder
+
+## Wireframes
+
+
+## Entity Relationship Diagrams
+
+## Planned Features
+- Calendar system that allows user to schedule meetups for found pets 
+- Upvote/downvote for comments
