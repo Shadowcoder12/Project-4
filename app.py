@@ -295,7 +295,7 @@ def show_pet(petid):
 
     # grabbing all comments associated with a specific pet
     comments = models.Comment.select().where(models.Comment.pet_id == petid)
-
+    
     print(f' this is the id of the {user}')
     user2 = models.User.select()
     
@@ -482,6 +482,48 @@ def add_sub_comment(petid, commentid):
     
     return render_template("add_comment.html", form=form)
 
+
+## =======================================================
+## DELETE SUBCOMMENT ROUTE
+## =======================================================
+@app.route("/delete_subcomment/<subcommentid>/<petid>", methods=["GET", "POST"])
+@login_required
+def delete_subcomment(subcommentid, petid):
+    specific_pet_id = petid
+    subcomment = models.SubComment.get(models.SubComment.id == subcommentid)
+    user = current_user.id
+    print(f'this is the comment object {subcomment}')
+
+    #checking to see if the current user equals the id of the user who created the subcomment
+    if user == subcomment.user_id:
+        flash(' Your Comment was deleted!', "editpet")
+        subcomment.delete_instance()
+    return redirect(f'/showpet/{specific_pet_id}')
+
+
+## =======================================================
+## EDIT SUBCOMMENT ROUTE
+## =======================================================
+@app.route("/edit_subcomment/<subcommentid>/<petid>", methods=["GET", "POST"])
+@login_required
+def edit_subcomment(subcommentid, petid):
+    form = forms.CommentForm()
+    specific_pet_id = petid
+    subcomment = models.SubComment.get(models.SubComment.id == subcommentid)
+    user = current_user.id
+    #checking to see if the user actually made the comment , if not , then redirect back to the show page
+    if user != subcomment.user_id:
+        return redirect(f'/showpet/{specific_pet_id}')
+
+    if form.validate_on_submit():
+        if user == subcomment.user_id: # if the user id matches the user id in the comment table , then the user can edit the comment
+            subcomment.text = form.text.data
+            subcomment.save()
+            return redirect(f'/showpet/{specific_pet_id}')
+            
+
+    form.text.data = subcomment.text
+    return render_template("add_comment.html", form=form)
 
 
 

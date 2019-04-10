@@ -89,13 +89,44 @@
 
               {% for subComment in subComments %}
               {% if subComment.comment_id == comment.id %}
-                {{ render_subcomment(subComment)}}
+                <!-- {{ render_subcomment(subComment)}} -->
+
+                <div class="comments">
+                    <div class="comment">
+                      <a class="avatar">
+                        <img src="../static/images/default-user-image.png">
+                      </a>
+                      <div class="content">
+                        <a class="author">{{subComment.user.username}}</a>
+                        <div class="metadata">
+                          <span class="date">Just now</span>
+                        </div>
+                        <div class="text">
+                            {{subComment.text}}
+                        </div>
+                        
+                        <div class="actions">
+                              {% if current_user.id == subComment.user_id %}
+                            <a href="{{url_for('edit_subcomment', subcommentid = subComment.id, commentid=comment.id, petid=pet.id)}}" >Edit</a>
+                          <a href="{{url_for('delete_subcomment', subcommentid = subComment.id,  commentid=comment.id, petid=pet.id)}}" >Delete</a>
+    
+                          {% endif %}
+                          
+                          </div>
+
+
+
+                      </div>
+                    </div>
+                  </div>
+
+
+
+
       {% endif%}
       {% endfor %}
 
 
-
-      
 
 
                   </div>
