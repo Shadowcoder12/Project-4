@@ -90,11 +90,11 @@ def after_request(response):
     g.db.close()
     return response
 
-def check_if_user_verified_email():
-    if current_user.verfied == False:
-        print(current_user.verfied)
+def check_if_user_verified_email(user):
+    if user.verfied == False:
+        print(user.verfied)
         flash(f'Please Verify your email to use Petfinder')
-        return redirect(url_for('logout'))
+        return redirect('/')
 
 
 
@@ -140,6 +140,8 @@ def register():
         #sends message to user that registered for an email
         msg = Message('Confirm Email', sender=SENDER_EMAIL, recipients=[email])
 
+        # temp_user = models.User.select().where(models.User.email=email).get()
+
         #creates link to the confirm_email template
         link = url_for('confirm_email', token=token, _external=True)
 
@@ -149,7 +151,7 @@ def register():
 
         print(f'the email is {email} and the token is {token}')
         flash(f" Hello {name}!Please check your email inbox and verify your email. Your token will expire in 60 minutes", "registersuccess")
-        return redirect(url_for('login')) # once the submissin is succesful, user is redirected to the index function which routes back to the home page
+        return redirect(url_for('pets')) # once the submissin is succesful, user is redirected to the index function which routes back to the home page
     return render_template('register.html', form=form)
 
 ## =======================================================
@@ -158,9 +160,13 @@ def register():
 @app.route('/confirm_email/<token>')
 def confirm_email(token):
     try:
-        email = s.loads(token, salt='email-confirm', max_age=36)
+        email = s.loads(token, salt='email-confirm', max_age=3600)
     except SignatureExpired:
         return render_template('token_expired.html')
+    else:
+        temp_user = models.User.select().where(models.User.email== email).get()
+        temp_user.verfied = True
+        temp_user.save()
     return render_template('confirmed_email.html')
 
 
@@ -208,6 +214,8 @@ def logout():
 @app.route('/pets', methods=('GET','POST'))
 @login_required
 def pets():
+    print(current_user.verfied)
+    check_if_user_verified_email(current_user)
 
     form = forms.PetForm()
     pets = models.Pet.select()
