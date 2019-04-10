@@ -9,7 +9,7 @@ from flask_mail import Message
 # Image uploader imports
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
-from secret import EMAIL_PASSWORD, SENDER_EMAIL, URL_SAFE_SECRET, APP_SECRET_KEY
+# from secret import EMAIL_PASSWORD, SENDER_EMAIL, URL_SAFE_SECRET, APP_SECRET_KEY
 
 from itsdangerous import URLSafeTimedSerializer, SignatureExpired
 
