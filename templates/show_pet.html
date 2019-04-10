@@ -67,7 +67,7 @@
                   {% if comment %} 
                   <div class="comment">
                     <a class="avatar">
-                      <img src="../static/images/default-user-image.png">
+                      <img src="{{comment.user.image_url}}">
                     </a>
                     <div class="content"> 
                       <a class="author">{{comment.user.username}}</a>
@@ -94,7 +94,7 @@
                 <div class="comments">
                     <div class="comment">
                       <a class="avatar">
-                        <img src="../static/images/default-user-image.png">
+                        <img src="{{subComment.user.image_url}}">
                       </a>
                       <div class="content">
                         <a class="author">{{subComment.user.username}}</a>

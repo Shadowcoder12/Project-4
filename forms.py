@@ -62,6 +62,12 @@ class RegisterForm(Form):
         validators = [
             DataRequired()
         ])
+    
+    user_image = FileField(
+        'Avatar Image',
+        validators=[
+            FileRequired(), FileAllowed(['jpg','png', 'gif'],'jpg & png images only') ] )
+
     submit = SubmitField(
         'Register'
     )

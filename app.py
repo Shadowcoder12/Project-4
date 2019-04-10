@@ -115,6 +115,10 @@ def index():
 def register():
     form = forms.RegisterForm()  # importing the RegisterFrom from forms.py
     if form.validate_on_submit(): # if the data in the form is valid,  then we are gonna create a user
+        # # Sets variable filename to image file of uploaded 'pet_image' from form
+        filename = images.save(request.files['user_image'])
+        # # Sets variable url to change image url to match filename
+        url = images.url(filename)
         flash('Yay you registered', 'success')
         models.User.create_user( # calling the create_user function from the user model and passing in the form data
             username=form.username.data,
@@ -122,6 +126,8 @@ def register():
             lastname=form.lastname.data,
             email=form.email.data,
             password=form.password.data,
+            image_filename = filename,
+            image_url = url
             )
         email = form.email.data
         name = form.firstname.data
@@ -143,7 +149,7 @@ def register():
 
         print(f'the email is {email} and the token is {token}')
         flash(f" Hello {name}!Please check your email inbox and verify your email. Your token will expire in 60 minutes", "registersuccess")
-        return redirect(url_for('logout')) # once the submissin is succesful, user is redirected to the index function which routes back to the home page
+        return redirect(url_for('login')) # once the submissin is succesful, user is redirected to the index function which routes back to the home page
     return render_template('register.html', form=form)
 
 ## =======================================================
@@ -535,7 +541,9 @@ if __name__ == '__main__':
             firstname='jimbo',
             lastname='fisher',
             email="jim@jim.com",
-            password='password'
+            password='password',
+            image_filename = " ",
+            image_url = "./static/images/default-user-image.png"
             )
     except ValueError:
         pass

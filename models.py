@@ -20,20 +20,25 @@ class User(UserMixin, Model):
     email = CharField(unique=True)
     joined_at = DateTimeField(default=date.today().strftime("%Y-%m-%d"))
     verfied = BooleanField(default=False)
+    image_filename = CharField()
+    image_url = CharField()
     class Meta:
         database = DATABASE
         order_by = ('-timestamp',)
     
     #  function that creates a new user
     @classmethod
-    def create_user(cls, username,firstname, lastname , password, email,):
+    def create_user(cls, username,firstname, lastname , password, email, image_filename, image_url):
         try:
             cls.create(
                 username = username,
                 firstname = firstname,
                 lastname = lastname,
                 email = email,
-                password = generate_password_hash(password)
+                password = generate_password_hash(password),
+                image_filename = image_filename,
+                image_url = image_url
+
             )
         except IntegrityError:
             raise ValueError("User already exists")

@@ -37,6 +37,10 @@
 {{ form.Password2(class_="input form-control", placeholder = " Confirm Password") }}
 </div> 
 <div class="form-group">
+    {{ form.user_image.label }}
+    {{ form.user_image(class_="input form-control-file") }}        
+    </div>
+<div class="form-group">
 {{ form.firstname(class_="input form-control", placeholder = "First name") }}
 </div>              
 <div class="form-group"> 
