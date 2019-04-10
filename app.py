@@ -53,7 +53,6 @@ login_manager.login_view = 'login'
 images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
 
-heroku config:set ON_HEROKU=1
 
 
 # def check_if_user_verified_email(f):
