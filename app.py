@@ -1,4 +1,5 @@
 import os
+import functools
 from flask import Flask, g, jsonify, request
 from flask import render_template, flash, redirect, url_for
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
@@ -53,10 +54,18 @@ images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
 
 
-def check_if_user_verified_email():
-    if current_user.verfied == False:
-        flash(f'Please Verify your email to use Petfinder')
-        return redirect(url_for('index'))
+
+# def check_if_user_verified_email(f):
+#     f = check_if_user_verified_email(f)
+#     @functools.wrap(f)
+#     def wrapped (*args, **kwargs):
+#         if current_user.verfied == False:
+#             flash(f'Please Verify your email to use Petfinder')
+#             return redirect(url_for('index'))
+#             result = f(*args, **kwargs)
+
+#             return result
+#     return wrapped
 
 
 
@@ -80,6 +89,15 @@ def after_request(response):
     # Close the database connection after each request
     g.db.close()
     return response
+
+def check_if_user_verified_email():
+    if current_user.verfied == False:
+        print(current_user.verfied)
+        flash(f'Please Verify your email to use Petfinder')
+        return redirect(url_for('logout'))
+
+
+
 
 ## =======================================================
 ## ROOT ROUTE
@@ -119,7 +137,7 @@ def register():
         #creates link to the confirm_email template
         link = url_for('confirm_email', token=token, _external=True)
 
-         #sends message to user that registered for an email
+        #sends message to user that registered for an email
         msg.body = f'Hello {name}! Thank you for signing up for petfinder. Please confirm your email using this link {link}'
         mail.send(msg)
 

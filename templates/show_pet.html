@@ -26,14 +26,13 @@
     </div>
     <div class="col-md-9">
 
-        <h2>{{pet.name}}</h2>
         <div class="card mb-3">
                 <img class="card-img-top" src="{{pet.image_url}}" alt="Card image cap">
                 <div class="card-body">
                   <div class="caption-full"> 
-                  <h4 class="pull-right"> Reward: $9.00 a night</h4>
                 </div>
-                  <h5 class="card-title">Current status:{{pet.status}}</h5>
+                  <h2>{{pet.name}}</h2>
+                  <h3 class="card-title">Current status:{{pet.status}}</h3>
                   <p class="card-text">Description: {{pet.description}}</p>
                   <p class="card-text">Last Known Location:{{pet.location}}</p>
                   <p class="card-text">Owner:{{ user.username }}</p>
