@@ -75,3 +75,6 @@ APP_SECRET_KEY = "Secret key for your app"
 ## Planned Features
 - Calendar system that allows user to schedule meetups for found pets 
 - Upvote/downvote for comments
+- Deployment on Heroku 
+- Private messsaging option between users 
+- Intergrate recursive comments
