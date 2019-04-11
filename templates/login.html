@@ -1,66 +1,67 @@
-{% extends "layout.html" %} {% block content %}
+{% extends "layout.html" %} 
+
+{% block content %}
 
 {% with messages = get_flashed_messages(with_categories=true) %}
   {% if messages %}
     {% for category, message in messages %}
 
     {% if category == 'loginerror' %}
-        <div id="myAlert" class="alert alert-danger alert-dismissible fade show" >
+      <div id="myAlert" class="alert alert-danger alert-dismissible fade show" >
         {{ message }}    
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button> 
-</div>
-{% endif %}
+          <span aria-hidden="true">&times;</span>
+        </button> 
+      </div>
+    {% endif %}
 
-{% if category == 'registersuccess' %}
-<div id="myAlert" class="alert alert-success alert-dismissible fade show" >
-{{ message }} 
-<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-<span aria-hidden="true">&times;</span>
-</button> 
-</div>
-{% endif %}
+    {% if category == 'registersuccess' %}
+      <div id="myAlert" class="alert alert-success alert-dismissible fade show" >
+        {{ message }} 
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> 
+      </div>
+    {% endif %}
 
-
-
-{% endfor %}
-{% endif %}
+    {% endfor %}
+  {% endif %}
 {% endwith %}
 
 
 
 
 <div class="form container"> 
-    <div class="row ">
+  <div class="row ">
     <h1 class="title">Login </h1> 
+    
     <div class="form-container">
-<form method="POST" action="" enctype=multipart/form-data>
-{{ form.hidden_tag() }} 
+      <form method="POST" action="" enctype=multipart/form-data>
+        {{ form.hidden_tag() }} 
 
-<div class="form-group">
-{{ form.email(class_="input form-control", placeholder = "Email Address") }}
-</div>              
-<div class="form-group"> 
-{{ form.password(class_="input form-control", placeholder = "Password") }}
-</div>  
-{{ form.submit(class_="button btn btn-outline-success btn-block") }}
-            
-</form>
-</div>
+        <div class="form-group">
+        {{ form.email(class_="input form-control", placeholder = "Email Address") }}
+        </div>              
+        <div class="form-group"> 
+        {{ form.password(class_="input form-control", placeholder = "Password") }}
+        </div>  
+        {{ form.submit(class_="button btn btn-outline-success btn-block") }}
 
+      </form>
     </div>
+  </div>
 </div>
 
 
-{% for field in form %}
-    <div class="field">
-      {% if field.errors %} {% for error in field.errors %}
-      <div class="notification error">{{ error }}</div>
-
-      {% endfor %}
-      {% endif %}
+{% for field in form %}    
+  {% if field.errors %} 
+    {% for error in field.errors %}
+      <div class="field">
+        <div class="notification error">{{ error }}</div>
+      </div>
     {% endfor %}
+  {% endif %}
+{% endfor %}
 
 {% endblock %}
 

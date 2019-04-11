@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"/>
    
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <!-- <link rel="stylesheet" href="{{ url_for('static', filename='css/message.css') }}"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <body>
@@ -55,17 +56,15 @@
           </div>
         </div>
         </nav>
-    
-      
+          
         <div class="content-container">
-           
+          <div class="content-inner-container">
             {% block content %}
-
-
-
-            {% endblock %}  
-        </div>  
-        <footer >
+            {% endblock %}
+          </div>
+        </div> 
+ 
+        <footer>
             <div id="footer" class="ui inverted grey vertical footer segment">  
                 <div class="ui center aligned container">
                     <h4 class="ui inverted header">&copy; Copyright 2019 | All rights reserved | Leonardo Fontenette</h4>
@@ -92,9 +91,13 @@
             }
             google.maps.event.addDomListener(window, 'load', initialize); 
         </script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>   
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+
+      
+
   </body>
 </html>
