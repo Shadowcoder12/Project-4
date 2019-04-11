@@ -2,23 +2,20 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/message.css') }}">
 
 <main>      
+    <h1 id="title">Live Chat!</h1>
         <section id="messages">
-            <span>logged in as {{current_user.username}}</span>
+            <span> Currently signed in as: <strong> {{current_user.username}} </strong></span>
         </section>
         <div>
 
-      <input type="text" id="myMessage">
-        <button id="sendbutton">Send</button>
+      <input placeholder="message" type="text" id="myMessage">
+        <button id="sendbutton">
+            <i class="up arrow icon"></i>
+
+        </button>
 
         </div>
       </main>
-
-
-
-
-
-
-
 
 
 
