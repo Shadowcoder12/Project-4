@@ -94,7 +94,7 @@ def after_request(response):
 def check_if_user_verified_email(user):
     if user.verfied == False:
         print(user.verfied)
-        flash(f'Please Verify your email to use Petfinder')
+        flash(f'Please Verify your email to use Petfinder') 
         return redirect('/')
 
 
