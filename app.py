@@ -98,15 +98,15 @@ def check_if_user_verified_email(user):
         return redirect('/')
 
 
-@socketio.on('message')
-# listening for the message event 
-def handleMessage(msg):
-    print('Message:' + msg)
-    send(msg, broadcast= True)
+# @socketio.on('message')
+# # listening for the message event 
+# def handleMessage(msg):
+#     print('Message:' + msg)
+#     send(msg, broadcast= True)
 
-@app.route('/message')
-def message():
-    return render_template('message.html')
+# @app.route('/message')
+# def message():
+#     return render_template('message.html')
 
 
 ## =======================================================

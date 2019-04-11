@@ -9,7 +9,7 @@ from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
 from flask_wtf.file import FileField, FileRequired
 
-from playhouse.db_url import connect
+# from playhouse.db_url import connect
 
 # DATABASE = connect(os.environ.get('DATABASE_URL'))
 DATABASE = SqliteDatabase('petfinder.db')
