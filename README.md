@@ -72,6 +72,8 @@ APP_SECRET_KEY = "Secret key for your app"
 
 ## Entity Relationship Diagrams
 
+![ScreenShot](static/images/ERD_Project4.jpg)
+
 ## Planned Features
 - Calendar system that allows user to schedule meetups for found pets 
 - Upvote/downvote for comments
