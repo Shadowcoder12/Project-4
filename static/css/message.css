@@ -1,4 +1,7 @@
-  
+/* Majority of the styles for the ios look-a-like message system came from https://github.com/jonnyk20 repo. 
+Tweaked a bit to fit my desire  */
+
+
   main {
     width: 400px;
     margin: auto;
@@ -39,6 +42,7 @@
     border-radius: 25px;
     /* float: right; */
     bottom: -50px;
+    margin-bottom: 20px;
   }
   
   p:nth-of-type(odd):before {
@@ -75,6 +79,7 @@
     /* float: left; */
     bottom: 50px;
     top: 50px;
+    margin-bottom: 15px;
   }
   
   p:nth-of-type(even):before {
@@ -110,3 +115,10 @@
     text-decoration: none;
     font-size: 16px; }
   
+
+    input {
+        width: 100%;
+        border: solid 1px #e5e5eb;
+        border-radius: 10px;
+        padding: 5px;
+      }
