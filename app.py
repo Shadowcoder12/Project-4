@@ -6,6 +6,7 @@ from flask_login import LoginManager, login_user, logout_user, login_required, c
 from flask_bcrypt import check_password_hash
 from flask_mail import Mail
 from flask_mail import Message
+from flask_socketio import SocketIO, send
 # Image uploader imports
 from flask_uploads import UploadSet, configure_uploads, IMAGES
 
@@ -53,7 +54,7 @@ login_manager.login_view = 'login'
 images = UploadSet('images', IMAGES)
 configure_uploads(app, images)
 
-
+socketio = SocketIO(app)
 
 # def check_if_user_verified_email(f):
 #     f = check_if_user_verified_email(f)
@@ -97,6 +98,15 @@ def check_if_user_verified_email(user):
         return redirect('/')
 
 
+@socketio.on('message')
+# listening for the message event 
+def handleMessage(msg):
+    print('Message:' + msg)
+    send(msg, broadcast= True)
+
+@app.route('/message')
+def message():
+    return render_template('message.html')
 
 
 ## =======================================================
