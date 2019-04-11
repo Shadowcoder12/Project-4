@@ -68,8 +68,6 @@ APP_SECRET_KEY = "Secret key for your app"
 - Also found here while publically available https://trello.com/b/5mWq9FNR/petfinder
 
 ## Wireframes
-![ScreenShot](static/images/wireframe1.jpg)
-![ScreenShot](static/images/wireframe2.jpg)
 
 ## Entity Relationship Diagrams
 
