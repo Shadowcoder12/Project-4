@@ -1,21 +1,21 @@
- body {padding:0; margin:0; height:90%;}
+ body {padding:0; margin:0; min-height:100vh;}
 
 
- /* .content-container{
+  /* .content-container{
      top:0;
      left:0;
      right: 0;
      position: absolute;
      z-index: 2;
- }
+ } */
 
-
-footer{ position:absolute; 
+/* 
+footer{ position: relative; 
     bottom: 0;
     left: 0;
     right: 0;
    
-    z-index: 1;}  */
+    z-index: 1;}   */
 
 .form{
     margin: 25px auto; 
