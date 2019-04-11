@@ -11,8 +11,8 @@ from flask_wtf.file import FileField, FileRequired
 
 from playhouse.db_url import connect
 
-DATABASE = connect(os.environ.get('DATABASE_URL'))
-# DATABASE = SqliteDatabase('petfinder.db')
+# DATABASE = connect(os.environ.get('DATABASE_URL'))
+DATABASE = SqliteDatabase('petfinder.db')
 
 class User(UserMixin, Model):
     __table_args__ = {'extend_existing': True} 
