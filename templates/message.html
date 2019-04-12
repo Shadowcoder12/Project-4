@@ -30,9 +30,11 @@
         socket.send('User has connected')
       });
 
+      
+
       socket.on('message', function(msg) {
-         
-        $("#messages").append('<p>'  + msg + '</p>')
+
+        $("#messages").append('<p>' + msg + '</p>')
       });
 
       $("#sendbutton").on('click', function() {
