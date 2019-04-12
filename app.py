@@ -95,7 +95,7 @@ def check_if_user_verified_email(user):
     if user.verfied == False:
         print(user.verfied)
         flash(f'Please Verify your email to use Petfinder') 
-        return redirect('/')
+        return redirect('/login')
 
 
 @socketio.on('message')
@@ -105,8 +105,8 @@ def handleMessage(msg):
     send(msg, broadcast= True)
  
 @app.route('/message')
+@login_required
 def message():
-    
     return render_template('message.html')
 
 
@@ -306,6 +306,10 @@ def add_pet():
 @app.route("/showpet/<petid>", methods=["GET", "POST"])
 @login_required
 def show_pet(petid):
+    if current_user.verfied == False:
+        print(current_user.verfied)
+        flash(f'Please verify your email to use Pethero sevices', 'emailverified') 
+        return redirect('/pets')
     # grabbing a specific pet by id
     pet = models.Pet.get(models.Pet.id == petid)
     # grabbing the user who created that pet 
