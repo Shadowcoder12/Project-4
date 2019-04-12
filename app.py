@@ -262,7 +262,7 @@ def lostpets():
 @app.route('/waiting_pets', methods=('GET','POST'))
 @login_required
 def waiting_pets():
-    pets = models.Pet.select().where(models.Pet.status =='waiting')
+    pets = models.Pet.select().where(models.Pet.status =='Waiting')
     return render_template('pets.html', pets = pets)
 
 
