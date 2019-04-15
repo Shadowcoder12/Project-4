@@ -68,7 +68,6 @@ APP_SECRET_KEY = "Secret key for your app"
 - Users can use the live chat feature to communicate with other users who are signed into the app
 - Also found here while publically available https://trello.com/b/5mWq9FNR/petfinder
 
-## Wireframes
 
 ## Entity Relationship Diagrams
 
