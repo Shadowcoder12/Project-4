@@ -56,19 +56,6 @@ configure_uploads(app, images)
 
 socketio = SocketIO(app)
 
-# def check_if_user_verified_email(f):
-#     f = check_if_user_verified_email(f)
-#     @functools.wrap(f)
-#     def wrapped (*args, **kwargs):
-#         if current_user.verfied == False:
-#             flash(f'Please Verify your email to use Petfinder')
-#             return redirect(url_for('index'))
-#             result = f(*args, **kwargs)
-
-#             return result
-#     return wrapped 
-
-
 
 @login_manager.user_loader
 def load_user(userid):
@@ -180,9 +167,6 @@ def confirm_email(token):
         temp_user.save()
     return render_template('confirmed_email.html')
 
-
-
-
 ## =======================================================
 ## LOGIN ROUTE
 ## =======================================================
@@ -205,7 +189,6 @@ def login():
                 flash("Your email or password doesn't match. Please try again", "loginerror")
     
     return render_template('login.html', form=form)
-
 
 ## =======================================================
 ## LOGOUT ROUTE
@@ -246,7 +229,6 @@ def pets():
         return render_template('pets.html', pets = pets,form = form)
     return render_template('pets.html', pets = pets,form = form, user = user)
 
-
 ## =======================================================
 ##  LOST PETS ROUTE
 ## =======================================================
@@ -264,7 +246,6 @@ def lostpets():
 def waiting_pets():
     pets = models.Pet.select().where(models.Pet.status =='Waiting')
     return render_template('pets.html', pets = pets)
-
 
 ## =======================================================
 ## ADD PET ROUTE
@@ -299,7 +280,6 @@ def add_pet():
         return redirect(url_for('pets'))
     return render_template('add_pets.html', pets = pets,form = form)
 
-
 ## =======================================================
 ## SHOW PET ROUTE
 ## =======================================================
@@ -330,7 +310,6 @@ def show_pet(petid):
     
     print(pet)
     return render_template("show_pet.html", pet=pet, user = user, comments = comments, subComments =subComments)
-
 
 ## =======================================================
 ## EDIT PET ROUTE
@@ -386,7 +365,6 @@ def delete_pet(petid):
     else:
         flash(f' Sorry{current_user.username}, you do not have permission to delete {pet.name} from our Database,"deletepet')
         return redirect(url_for('pets'))
-
 
 ## =======================================================
 ## FOUND PET ROUTE
@@ -528,7 +506,6 @@ def delete_subcomment(subcommentid, petid):
         flash(' Your Comment was deleted!', "editpet")
         subcomment.delete_instance()
     return redirect(f'/showpet/{specific_pet_id}')
-
 
 ## =======================================================
 ## EDIT SUBCOMMENT ROUTE
