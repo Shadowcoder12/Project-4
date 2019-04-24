@@ -4,6 +4,7 @@ from datetime import date
 from datetime import time
 from datetime import datetime, timedelta
 from peewee import *
+from peewee import PostgresqlDatabase
 
 from flask_login import UserMixin
 from flask_bcrypt import generate_password_hash
@@ -12,7 +13,8 @@ from flask_wtf.file import FileField, FileRequired
 # from playhouse.db_url import connect
 
 # DATABASE = connect(os.environ.get('DATABASE_URL'))
-DATABASE = SqliteDatabase('petfinder.db')
+# DATABASE = SqliteDatabase('petfinder.db')
+DATABASE = PostgresqlDatabase('petfinder')
 
 class User(UserMixin, Model):
     __table_args__ = {'extend_existing': True} 

@@ -539,17 +539,17 @@ if 'ON_HEROKU' in os.environ:
 
 if __name__ == '__main__':
     models.initialize()
-    try:
-        models.User.create_user(
-            username='EricCartman',
-            firstname='jimbo',
-            lastname='fisher',
-            email="jim@jim.com",
-            password='password',
-            image_filename = " ",
-            image_url = "./static/images/default-user-image.png"
-            )
-    except ValueError:
-        pass
+    # try:
+    #     models.User.create_user(
+    #         username='EricCartman',
+    #         firstname='jimbo',
+    #         lastname='fisher',
+    #         email="jim@jim.com",
+    #         password='password',
+    #         image_filename = " ",
+    #         image_url = "./static/images/default-user-image.png"
+    #         )
+    # except ValueError:
+    #     pass
 
     app.run(debug=DEBUG, port=PORT)
